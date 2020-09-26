@@ -10,6 +10,7 @@ public class Main {
 		
 		
 		Scanner sn = new Scanner(Sysetem.in);
+		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
 		int opcion;
 		
@@ -27,7 +28,6 @@ public class Main {
 			
 			switch(opcion) {
 			case 1: //Crear contacto
-				Scanner teclado = new Scanner(System.in);
 				
 				System.out.println( "Introduce nombre por favor : \n");
 				
@@ -51,26 +51,24 @@ public class Main {
 				
 			case 2: 
 				//Eliminar contacto
-				Scanner sn = new Scanner(System.in);
 				String email;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = sn.nextLine();
+				email = teclado.nextLine();
 				gestor.eliminarContacto(email);
 				break;
 			case 3:
 				//Buscar contacto
-				Scanner sn = new Scanner(System.in);
 				String email;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = sn.nextLine();
+				email = teclado.nextLine();
 				gestor.buscarContacto(email);
 				break;
 			case 4:
 				//Actualizar contacto
-				Scanner sn = new Scanner(System.in);
+				
 				String email;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = sn.nextLine();
+				email = teclado.nextLine();
 				gestor.actualizarContacto(email);
 				break;
 			case 5:
