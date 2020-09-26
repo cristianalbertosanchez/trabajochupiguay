@@ -6,13 +6,9 @@ public class Contacto {
 
 	
 	private String nombre;
-	
 	private String apellidos;
-	
 	private String fecha_nacimiento;
-	
 	private String email;
-	
 	private ArrayList<String> intereses;
 	
 	public Contacto(String nombre,String apellidos,String email,String fechaN) {this.nombre = nombre; this.apellidos = apellidos; this.email = email;this.fecha_nacimiento = fechaN;}
