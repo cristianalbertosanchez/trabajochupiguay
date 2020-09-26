@@ -6,10 +6,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		GestorContactos gestor = GestorContactos.getInstance();
+		GestorContactos g = GestorContactos.getInstance();
 		
 		
-		Scanner sn = new Scanner(Sysetem.in);
+		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
 		int opcion;
@@ -26,7 +26,7 @@ public class Main {
 			System.out.println("Introducir opcion : \n");
 			opcion = sn.nextInt();
 			
-			switch(opcion) {
+			switch(opcion){
 			case 1: //Crear contacto
 				
 				System.out.println( "Introduce nombre por favor : \n");
@@ -39,41 +39,41 @@ public class Main {
 				
 				System.out.println("Introduce email por favor : \n");
 				
-				String email = teclado.nextLine();
+				String contactoEmail = teclado.nextLine();
 				
 				System.out.println("Introduce la fecha de nacimiento : \n");
 				
 				String fechaN = teclado.nextLine();
 				
-				gestor.crearContacto(nombre,apellidos,email,fechaN);
+				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
 				
 				break;
 				
 			case 2: 
 				//Eliminar contacto
-				String email;
+				String cadena;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = teclado.nextLine();
-				gestor.eliminarContacto(email);
+				cadena = teclado.nextLine();
+				g.eliminarContacto(cadena);
 				break;
 			case 3:
 				//Buscar contacto
-				String email;
+				String cadena2;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = teclado.nextLine();
-				gestor.buscarContacto(email);
+				cadena2 = teclado.nextLine();
+				g.buscarContacto(cadena2);
 				break;
 			case 4:
 				//Actualizar contacto
 				
-				String email;
+				String cadena3;
 				System.out.println("Introducir email de el contacto a actualizar.\n");
-				email = teclado.nextLine();
-				gestor.actualizarContacto(email);
+				cadena3 = teclado.nextLine();
+				g.actualizarContacto(cadena3);
 				break;
 			case 5:
 				//Mostrar contactos
-				gestor.mostrarContactos();
+				g.mostrarContactos();
 				break;
 			case 6:
 				salir = true;
