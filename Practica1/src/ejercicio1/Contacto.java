@@ -6,8 +6,27 @@ public class Contacto {
 
 	
 	private String nombre;
+	
+	
+	
+	
+	
+	
 	private String apellidos;
+	
+	
+	
+	
+	
+	
 	private String fecha_nacimiento;
+	
+	
+	
+	
+	
+	
+	
 	private String email;
 	private ArrayList<String> intereses;
 	
