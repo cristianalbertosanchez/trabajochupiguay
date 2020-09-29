@@ -30,9 +30,11 @@ public class GestorContactos {
 	public void eliminarContacto(String email) 
 	{
 		for(int i=0;i<contactos.size();i++) {
-			if(contactos.get(i).getEmail() == email) {
-				contactos.remove(i);
+			if(contactos.get(i).getEmail().contentEquals(email)) {
 				System.out.println("Contacto eliminado.\n");
+				contactos.remove(i);
+			}else {
+				System.out.println("Contacto no encontrado.\n");
 			}
 		}
 	}
@@ -40,7 +42,7 @@ public class GestorContactos {
 	public void actualizarContacto(String email) {
 		
 		for(int i=0;i<contactos.size();i++) {
-			if(contactos.get(i).getEmail() == email) {
+			if(contactos.get(i).getEmail().contentEquals(email)) {
 				Scanner teclado = new Scanner(System.in);
 				System.out.println("Introducir nuevo nombre : \n");
 				String nuevoNombre = teclado.nextLine();
@@ -52,21 +54,36 @@ public class GestorContactos {
 				String nuevoEmail = teclado.nextLine();
 				contactos.get(i).setEmail(nuevoEmail);
 				System.out.println("Introducir nueva fecha de nacimiento : \n");
+				String nuevaFecha = teclado.nextLine();
+				contactos.get(i).setFechaN(nuevaFecha);
+			}else {
+				System.out.println("Contacto no encontrado.\n");
 			}
 		}
 		
 	}
 	
-	public void buscarContacto(String email) {}
+	public void buscarContacto(String email) {
+		for(int i=0;i<contactos.size();i++) {
+			if(contactos.get(i).getEmail().contentEquals(email)) {
+				System.out.println("Contacto encontrado.\n");
+			}else {
+				System.out.println("Contacto no encontrado.\n");
+			}
+		}
+	}
 	
 	public void mostrarContactos() {
-		
-		for(int i=0;i<contactos.size();i++) {
-			System.out.println(contactos.get(i).getNombre());
-			System.out.println(contactos.get(i).getApellidos());
-			System.out.println(contactos.get(i).getEmail());
-			System.out.println(contactos.get(i).getFechaN());
-			System.out.println("----------------------------");
+		if(contactos.isEmpty()) {
+			System.out.println("La lista esta vacia.\n");
+		}else {
+			for(int i=0;i<contactos.size();i++) {
+				System.out.println("Nombre : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos : " + contactos.get(i).getApellidos());
+				System.out.println("Email : " + contactos.get(i).getEmail());
+				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+				System.out.println("----------------------------");
+			}
 		}
 		
 	}

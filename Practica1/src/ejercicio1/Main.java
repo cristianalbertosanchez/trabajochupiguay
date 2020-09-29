@@ -52,14 +52,14 @@ public class Main {
 			case 2: 
 				//Eliminar contacto
 				String cadena;
-				System.out.println("Introducir email de el contacto a actualizar.\n");
+				System.out.println("Introducir email de el contacto a eliminar : \n");
 				cadena = teclado.nextLine();
 				g.eliminarContacto(cadena);
 				break;
 			case 3:
 				//Buscar contacto
 				String cadena2;
-				System.out.println("Introducir email de el contacto a actualizar.\n");
+				System.out.println("Introducir email de el contacto a buscar : \n");
 				cadena2 = teclado.nextLine();
 				g.buscarContacto(cadena2);
 				break;
@@ -67,15 +67,16 @@ public class Main {
 				//Actualizar contacto
 				
 				String cadena3;
-				System.out.println("Introducir email de el contacto a actualizar.\n");
+				System.out.println("Introducir email de el contacto a actualizar : \n");
 				cadena3 = teclado.nextLine();
 				g.actualizarContacto(cadena3);
 				break;
 			case 5:
 				//Mostrar contactos
 				g.mostrarContactos();
-				break;
-			case 6:
+				break;	
+			case 0:
+				System.out.println("Saliendo del programa ...\n");
 				salir = true;
 				break;
 			default:
