@@ -6,7 +6,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		GestorContactos g = GestorContactos.getInstance();
+		GestorContactos g = GestorContactos.getInstance(); /*Solicito un objeto gestorContactos
+		 													mediante el patron singleton*/
 		
 		
 		Scanner sn = new Scanner(System.in);
@@ -45,7 +46,14 @@ public class Main {
 				
 				String fechaN = teclado.nextLine();
 				
-				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
+				if(g.existeContacto(contactoEmail)) {
+					System.out.println("El email debe ser unico para cada contacto.\n");
+				}else {
+					System.out.println("Contacto creado.\n");
+					g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
+				}
+				
+				
 				
 				break;
 				

@@ -3,6 +3,7 @@ package ejercicio1;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class GestorContactos {
 
 	private static GestorContactos gestor;
@@ -46,16 +47,27 @@ public class GestorContactos {
 				Scanner teclado = new Scanner(System.in);
 				System.out.println("Introducir nuevo nombre : \n");
 				String nuevoNombre = teclado.nextLine();
-				contactos.get(i).setNombre(nuevoNombre);
+				
 				System.out.println("Introducir nuevos apellidos : \n");
 				String nuevosApellidos = teclado.nextLine();
-				contactos.get(i).setApellidos(nuevosApellidos);
+				
 				System.out.println("Introducir nuevo email : \n");
 				String nuevoEmail = teclado.nextLine();
-				contactos.get(i).setEmail(nuevoEmail);
+				
 				System.out.println("Introducir nueva fecha de nacimiento : \n");
 				String nuevaFecha = teclado.nextLine();
-				contactos.get(i).setFechaN(nuevaFecha);
+				
+				if(existeContacto(nuevoEmail)) {
+					System.out.println("El email debe ser unico para cada contacto.\n");
+					System.out.println("No se ha actualizado el contacto.\n");
+				}else {
+					contactos.get(i).setNombre(nuevoNombre);
+					contactos.get(i).setApellidos(nuevosApellidos);
+					contactos.get(i).setEmail(nuevoEmail);
+					contactos.get(i).setFechaN(nuevaFecha);
+					System.out.println("Contacto actualizado con exito.\n");
+				}
+				
 			}else {
 				System.out.println("Contacto no encontrado.\n");
 			}
@@ -63,14 +75,26 @@ public class GestorContactos {
 		
 	}
 	
-	public void buscarContacto(String email) {
+	public void buscarContacto(String email){
+		
+		outerloop: 
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
 				System.out.println("Contacto encontrado.\n");
+				System.out.println(contactos.get(i).getNombre());
+				System.out.println(contactos.get(i).getApellidos());
+				System.out.println(contactos.get(i).getEmail());
+				System.out.println(contactos.get(i).getFechaN());
+				System.out.println("----------------------------");
+				
+				break outerloop;
+
 			}else {
-				System.out.println("Contacto no encontrado.\n");
+				System.out.println("Contacto no encontrado.\n");	
 			}
+			
 		}
+		
 	}
 	
 	public void mostrarContactos() {
@@ -86,6 +110,18 @@ public class GestorContactos {
 			}
 		}
 		
+	}
+	
+	
+	public boolean existeContacto(String email) {
+		boolean existe = false;
+		
+		for(int i=0;i<contactos.size();i++) {
+			if(contactos.get(i).getEmail().contentEquals(email)) {
+				existe = true;
+			}
+		}
+		return existe;
 	}
 	
 	
