@@ -76,8 +76,9 @@ public class GestorContactos {
 	}
 	
 	public void buscarContacto(String email){
+		boolean aux;
+		aux=false;
 		
-		outerloop: 
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
 				System.out.println("Contacto encontrado.\n");
@@ -87,12 +88,12 @@ public class GestorContactos {
 				System.out.println(contactos.get(i).getFechaN());
 				System.out.println("----------------------------");
 				
-				break outerloop;
-
-			}else {
-				System.out.println("Contacto no encontrado.\n");	
+				aux=true;
 			}
-			
+		}
+		
+		if (aux!=true) {
+			System.out.println("Contacto no encontrado.\n");
 		}
 		
 	}

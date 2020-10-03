@@ -38,21 +38,37 @@ public class Main {
 				
 				String apellidos = teclado.nextLine();
 				
-				System.out.println("Introduce email por favor : \n");
 				
-				String contactoEmail = teclado.nextLine();
+				
+				
+				System.out.println("Introduce email por favor : \n");
+				String contactoEmail= teclado.nextLine();
+					
+					
+					
+				while(g.existeContacto(contactoEmail)) {
+					System.out.println("El email ya se encuentra en uso, por favor ingrese otra dirección de email.\n");
+					System.out.println("Introduce email por favor : \n");
+					contactoEmail= teclado.nextLine();
+				}
+				
+				
+				
+				
+								
+				
+					
+				
+				
+				
 				
 				System.out.println("Introduce la fecha de nacimiento : \n");
 				
 				String fechaN = teclado.nextLine();
 				
-				if(g.existeContacto(contactoEmail)) {
-					System.out.println("El email debe ser unico para cada contacto.\n");
-				}else {
 					System.out.println("Contacto creado.\n");
 					g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
-				}
-				
+							
 				
 				
 				break;
