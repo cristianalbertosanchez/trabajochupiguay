@@ -22,6 +22,9 @@ public class GestorContactos {
 		
 	}
 	
+	
+	
+	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN)
 	{
 		Contacto c = new Contacto(nombre,apellidos,email,fechaN);
@@ -75,27 +78,24 @@ public class GestorContactos {
 		
 	}
 	
-	public void buscarContacto(String email){
+	public boolean buscarContacto(String email){
 		boolean aux;
 		aux=false;
 		
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
-				System.out.println("Contacto encontrado.\n");
-				System.out.println(contactos.get(i).getNombre());
-				System.out.println(contactos.get(i).getApellidos());
-				System.out.println(contactos.get(i).getEmail());
-				System.out.println(contactos.get(i).getFechaN());
+				System.out.println("\n");
+				System.out.println("Nombre              : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+				System.out.println("Email               : " + contactos.get(i).getEmail());
+				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
 				System.out.println("----------------------------");
 				
 				aux=true;
 			}
 		}
 		
-		if (aux!=true) {
-			System.out.println("Contacto no encontrado.\n");
-		}
-		
+		return aux;
 	}
 	
 	public void mostrarContactos() {
@@ -103,9 +103,9 @@ public class GestorContactos {
 			System.out.println("La lista esta vacia.\n");
 		}else {
 			for(int i=0;i<contactos.size();i++) {
-				System.out.println("Nombre : " + contactos.get(i).getNombre());
-				System.out.println("Apellidos : " + contactos.get(i).getApellidos());
-				System.out.println("Email : " + contactos.get(i).getEmail());
+				System.out.println("Nombre              : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+				System.out.println("Email               : " + contactos.get(i).getEmail());
 				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
 				System.out.println("----------------------------");
 			}

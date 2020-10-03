@@ -28,7 +28,9 @@ public class Main {
 			opcion = sn.nextInt();
 			
 			switch(opcion){
-			case 1: //Crear contacto
+			case 1: //Añadir contacto
+				
+				
 				
 				System.out.println( "Introduce nombre por favor : \n");
 				
@@ -38,54 +40,68 @@ public class Main {
 				
 				String apellidos = teclado.nextLine();
 				
-				
-				
-				
 				System.out.println("Introduce email por favor : \n");
 				String contactoEmail= teclado.nextLine();
-					
-					
-					
+													
 				while(g.existeContacto(contactoEmail)) {
 					System.out.println("El email ya se encuentra en uso, por favor ingrese otra dirección de email.\n");
 					System.out.println("Introduce email por favor : \n");
 					contactoEmail= teclado.nextLine();
 				}
-				
-				
-				
-				
-								
-				
-					
-				
-				
-				
-				
 				System.out.println("Introduce la fecha de nacimiento : \n");
-				
 				String fechaN = teclado.nextLine();
 				
-					System.out.println("Contacto creado.\n");
-					g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
-							
-				
-				
+				System.out.println("Contacto creado.\n");
+				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
+								
 				break;
 				
 			case 2: 
 				//Eliminar contacto
-				String cadena;
+				String cadena,auxiliar;
 				System.out.println("Introducir email de el contacto a eliminar : \n");
 				cadena = teclado.nextLine();
-				g.eliminarContacto(cadena);
+				
+				if(!g.buscarContacto(cadena)) {
+					System.out.println("Contacto no encontrado\n");
+					break;
+				}
+				System.out.println("A continuación se muestran los datos del contacto a eliminar: \n");
+				System.out.println("¿Eliminar definitivamente? Y/N \n");
+				auxiliar = teclado.nextLine();
+								
+				if(auxiliar.equals("y")|| auxiliar.equals("Y")) {
+					g.eliminarContacto(cadena);
+				}
+				else {
+					System.out.println("Volviendo al menú...");
+				}
+			
+				
 				break;
 			case 3:
 				//Buscar contacto
-				String cadena2;
+				String cadena2,aux;
 				System.out.println("Introducir email de el contacto a buscar : \n");
 				cadena2 = teclado.nextLine();
 				g.buscarContacto(cadena2);
+				
+				while(!g.buscarContacto(cadena2)) {
+					
+					System.out.println("Contacto no encontrado \n");
+					System.out.println("¿Desea buscar otro contacto? Y/N\n");
+					aux = teclado.nextLine();
+					if(aux.equals("y")|| aux.equals("Y")) {
+						System.out.println("Introducir email de el contacto a buscar : \n");
+						cadena2 = teclado.nextLine();
+						g.buscarContacto(cadena2);
+					}
+					else {
+						System.out.println("Volviendo al menú...");
+						break;
+					}
+				}
+				
 				break;
 			case 4:
 				//Actualizar contacto
