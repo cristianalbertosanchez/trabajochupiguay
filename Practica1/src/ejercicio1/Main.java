@@ -22,7 +22,8 @@ public class Main {
 			System.out.println("3. Buscar contacto.\n");
 			System.out.println("4. Actualizar contacto.\n");
 			System.out.println("5. Mostrar contactos.\n");
-			System.out.println("0. Salir");
+			System.out.println("0. Salir\n");
+			
 			
 			System.out.println("Introducir opcion : \n");
 			opcion = sn.nextInt();
@@ -53,7 +54,9 @@ public class Main {
 				
 				System.out.println("Contacto creado.\n");
 				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
-								
+				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 				
 			case 2: 
@@ -76,7 +79,8 @@ public class Main {
 				else {
 					System.out.println("Volviendo al menú...");
 				}
-			
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				
 				break;
 			case 3:
@@ -101,7 +105,8 @@ public class Main {
 						break;
 					}
 				}
-				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			case 4:
 				//Actualizar contacto
@@ -110,11 +115,19 @@ public class Main {
 				System.out.println("Introducir email de el contacto a actualizar : \n");
 				cadena3 = teclado.nextLine();
 				g.actualizarContacto(cadena3);
+				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			case 5:
 				//Mostrar contactos
 				g.mostrarContactos();
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+				
 				break;	
+				
+				
 			case 0:
 				System.out.println("Saliendo del programa ...\n");
 				salir = true;

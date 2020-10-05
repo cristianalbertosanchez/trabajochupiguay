@@ -2,6 +2,8 @@ package ejercicio1;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+
 
 
 public class GestorContactos {
@@ -124,6 +126,43 @@ public class GestorContactos {
 		}
 		return existe;
 	}
+	
+	static public void press_any_key_to_continue() {
+		String seguir;
+	    Scanner teclado = new Scanner(System.in);
+		System.out.println("Volviendo al menú... pulse una tecla para continuar");
+		
+		try
+	    {
+	        seguir = teclado.nextLine();
+	    }
+	    catch(Exception e)
+	    {}
+		
+	}
+	
+	
+	public final static void clearConsole()
+	{
+	       try
+	       {
+	           final String os = System.getProperty("os.name");
+
+	           if (os.contains("Windows"))
+	           {
+	               Runtime.getRuntime().exec("cls");
+	           }
+	           else
+	           {
+	               Runtime.getRuntime().exec("clear");
+	           }
+	       }
+	       catch (final Exception e)
+	       {
+	           //  Handle any exceptions.
+	       }
+	}
+	
 	
 	
 }
