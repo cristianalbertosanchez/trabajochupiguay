@@ -72,54 +72,16 @@ public class Main {
 				
 			case 2: 
 				//Eliminar contacto
-				String cadena,auxiliar;
-				System.out.println("Introducir email de el contacto a eliminar : \n");
-				cadena = teclado.nextLine();
-				
-				if(!g.buscarContacto(cadena)) {
-					System.out.println("Contacto no encontrado\n");
-					break;
-				}
-				System.out.println("A continuación se muestran los datos del contacto a eliminar: \n");
-				System.out.println("¿Eliminar definitivamente? Y/N \n");
-				auxiliar = teclado.nextLine();
-								
-				if(auxiliar.equals("y")|| auxiliar.equals("Y")) {
-					g.eliminarContacto(cadena);
-				}
-				else {
-					System.out.println("Volviendo al menú...");
-					break;
-				}
+				g.eliminarContacto();
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				
 				break;
 			case 3:
 				//Buscar contacto
-				String cadena2,aux;
-				System.out.println("Introducir email de el contacto a buscar : \n");
-				cadena2 = teclado.nextLine();
-				boolean comprueba=true;
-				comprueba= (g.buscarContacto(cadena2));
+
+				g.buscarContacto();
 				
-				while(!comprueba) {
-					
-					
-					System.out.println("Contacto no encontrado \n");
-					System.out.println("¿Desea buscar otro contacto? Y/N\n");
-					aux = teclado.nextLine();
-					if(aux.equals("y")|| aux.equals("Y")) {
-						System.out.println("Introducir email de el contacto a buscar : \n");
-						cadena2 = teclado.nextLine();
-						g.buscarContacto(cadena2);
-						comprueba= (g.buscarContacto(cadena2));
-					}
-					else {
-						
-						break;
-					}
-				}
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				break;

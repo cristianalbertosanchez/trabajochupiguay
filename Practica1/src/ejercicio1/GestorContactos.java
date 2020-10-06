@@ -32,16 +32,58 @@ public class GestorContactos {
 		contactos.add(c);
 	}
 	
-	public void eliminarContacto(String email) 
+	public void eliminarContacto() 
 	{
+		
+		
+		Scanner sn = new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
+				
+		String cadena,auxiliar;
+		boolean comprueba=false;
+		System.out.println("Introducir email de el contacto a eliminar : \n");
+		cadena = teclado.nextLine();
+		
 		for(int i=0;i<contactos.size();i++) {
-			if(contactos.get(i).getEmail().contentEquals(email)) {
-				System.out.println("Contacto eliminado.\n");
-				contactos.remove(i);
-			}else {
-				System.out.println("Contacto no encontrado.\n");
+			if(contactos.get(i).getEmail().contentEquals(cadena)) {
+				comprueba=true;
 			}
 		}
+		
+		
+		if(!comprueba) {
+			System.out.println("Contacto no encontrado\n");
+		}
+		else {
+			System.out.println("A continuación se muestran los datos del contacto a eliminar: \n");
+			
+			for(int i=0;i<contactos.size();i++) {
+				if(contactos.get(i).getEmail().contentEquals(cadena)) {
+					comprueba=true;
+					System.out.println("\n");
+					System.out.println("Nombre              : " + contactos.get(i).getNombre());
+					System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+					System.out.println("Email               : " + contactos.get(i).getEmail());
+					System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+					System.out.println("----------------------------");
+				}
+			}
+			System.out.println("¿Eliminar definitivamente? Y/N \n");
+			auxiliar = teclado.nextLine();
+							
+			if(auxiliar.equals("y")|| auxiliar.equals("Y")) {
+				for(int i=0;i<contactos.size();i++) {
+					if(contactos.get(i).getEmail().contentEquals(cadena)) {
+						System.out.println("Contacto eliminado.\n");
+						contactos.remove(i);
+					}
+				}
+			}
+		}
+		
+
+		
+		
 	}
 	
 	public void actualizarContacto(String email) {
@@ -122,22 +164,96 @@ public class GestorContactos {
 		
 	
 	
-	public boolean buscarContacto(String email){
+	public boolean buscarContacto(){
 		boolean aux;
 		aux=false;
+		int opcion;
+		Scanner sn = new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
 		
-		for(int i=0;i<contactos.size();i++) {
-			if(contactos.get(i).getEmail().contentEquals(email)) {
-				System.out.println("\n");
-				System.out.println("Nombre              : " + contactos.get(i).getNombre());
-				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-				System.out.println("Email               : " + contactos.get(i).getEmail());
-				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-				System.out.println("----------------------------");
+		System.out.println("1. Buscar por Nombre y apellidos.\n");
+		System.out.println("2. Buscar por Fecha de nacimiento\n");
+		System.out.println("3. Buscar por Email.\n");
+		System.out.println("0. Salir\n");
+		
+		
+		System.out.println("Introducir opcion : \n");
+		opcion = sn.nextInt();
+			switch(opcion) {
+				case 1:
+					
+					System.out.println( "Introduce el nombre por favor : \n");
+					String nombre = teclado.nextLine();
+					System.out.println( "Introduce los apellidos por favor : \n");
+					String apellidos = teclado.nextLine();
+					
+					for(int i=0;i<contactos.size();i++) {
+						if(contactos.get(i).getNombre().contentEquals(nombre)&&contactos.get(i).getApellidos().contentEquals(apellidos)) {
+							System.out.println("\n");
+							System.out.println("Nombre              : " + contactos.get(i).getNombre());
+							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+							System.out.println("Email               : " + contactos.get(i).getEmail());
+							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+							System.out.println("----------------------------");
+							
+							aux=true;
+						}
+					}
+							
+					
+				break;
 				
-				aux=true;
+				case 2:
+					System.out.println( "Introduce la fecha de nacimiento con el siguiente formato DD/MM/AAAA : \n");
+					String fecha = teclado.nextLine();
+					if(validarFecha(fecha)) {
+						for(int i=0;i<contactos.size();i++) {
+							if(contactos.get(i).getFechaN().contentEquals(fecha)) {
+								System.out.println("\n");
+								System.out.println("Nombre              : " + contactos.get(i).getNombre());
+								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+								System.out.println("Email               : " + contactos.get(i).getEmail());
+								System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+								System.out.println("----------------------------");
+								
+								aux=true;
+							}
+						}
+					}
+					else {
+						System.out.println("Formato de Fecha no válido\n");
+					}
+					
+					
+				break;
+				
+				case 3:
+
+					System.out.println( "Introduce el email a buscar por favor : \n");
+					String Email = teclado.nextLine();
+					
+					for(int i=0;i<contactos.size();i++) {
+						if(contactos.get(i).getEmail().contentEquals(Email)) {
+							System.out.println("\n");
+							System.out.println("Nombre              : " + contactos.get(i).getNombre());
+							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+							System.out.println("Email               : " + contactos.get(i).getEmail());
+							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+							System.out.println("----------------------------");
+							
+							aux=true;
+						}
+					}
+					
+				break;
+				
+				case 0:
+					System.out.println("Volviendo al menú... \n");
+				break;
+				default:
+					System.out.println("Opcion no válida \n");
+				break;
 			}
-		}
 		
 		return aux;
 	}
