@@ -14,6 +14,7 @@ public class GestorContactos {
 	
 	private GestorContactos() {contactos = new ArrayList<Contacto>();}
 	
+	
 	public static GestorContactos getInstance() {
 		
 		if(gestor == null) {
@@ -127,6 +128,9 @@ public class GestorContactos {
 		}
 		return existe;
 	}
+	
+
+	
 	
 	static public void press_any_key_to_continue() {
 		String seguir;

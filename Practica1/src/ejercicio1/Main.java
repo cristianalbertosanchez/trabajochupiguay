@@ -87,9 +87,11 @@ public class Main {
 				String cadena2,aux;
 				System.out.println("Introducir email de el contacto a buscar : \n");
 				cadena2 = teclado.nextLine();
-				g.buscarContacto(cadena2);
+				boolean comprueba=true;
+				comprueba= (g.buscarContacto(cadena2));
 				
-				while(!g.buscarContacto(cadena2)) {
+				while(!comprueba) {
+					
 					
 					System.out.println("Contacto no encontrado \n");
 					System.out.println("¿Desea buscar otro contacto? Y/N\n");
@@ -98,9 +100,10 @@ public class Main {
 						System.out.println("Introducir email de el contacto a buscar : \n");
 						cadena2 = teclado.nextLine();
 						g.buscarContacto(cadena2);
+						comprueba= (g.buscarContacto(cadena2));
 					}
 					else {
-						System.out.println("Volviendo al menú...");
+						
 						break;
 					}
 				}
