@@ -43,13 +43,25 @@ public class Main {
 				System.out.println("Introduce email por favor : \n");
 				String contactoEmail= teclado.nextLine();
 													
-				while(g.existeContacto(contactoEmail)) {
-					System.out.println("El email ya se encuentra en uso, por favor ingrese otra dirección de email.\n");
-					System.out.println("Introduce email por favor : \n");
+				while(g.existeContacto(contactoEmail)==-1 ) {
+					
+					System.out.println("Introduce de nuevo un email por favor : \n");
 					contactoEmail= teclado.nextLine();
 				}
-				System.out.println("Introduce la fecha de nacimiento : \n");
+				
+				
+				System.out.println("Introduce la fecha de nacimiento :    ");
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 				String fechaN = teclado.nextLine();
+				
+				while(!g.validarFecha(fechaN)) {
+					System.out.println("\nFecha no válida");
+					System.out.println("Introduce la fecha de nacimiento :    ");
+					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+					fechaN = teclado.nextLine();
+				}
+								
+				
 				
 				System.out.println("Contacto creado.\n");
 				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
@@ -77,6 +89,7 @@ public class Main {
 				}
 				else {
 					System.out.println("Volviendo al menú...");
+					break;
 				}
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
