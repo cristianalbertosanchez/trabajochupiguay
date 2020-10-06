@@ -74,6 +74,7 @@ public class GestorContactos {
 				}
 				
 			}else {
+			
 				System.out.println("Contacto no encontrado.\n");
 			}
 		}
