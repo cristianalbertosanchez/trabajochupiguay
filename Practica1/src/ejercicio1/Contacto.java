@@ -14,6 +14,7 @@ public class Contacto {
 	public Contacto(String nombre,String apellidos,String email,String fechaN) {this.nombre = nombre; this.apellidos = apellidos; this.email = email;this.fecha_nacimiento = fechaN;}
 	
 	public String getEmail() {return email;}
+
 	public String getNombre(){return this.nombre;}
 	public String getApellidos() {return this.apellidos;}	
 	public String getFechaN() {return this.fecha_nacimiento;}
