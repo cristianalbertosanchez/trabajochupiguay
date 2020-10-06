@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="0"/>
+	<item key="GitSelectRepositoryPage.lastRepository" value="/home/pablo/git/trabajochupiguay/.git"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/cristianalbertosanchez/trabajochupiguay.git"/>
+		<item value="file:////home/pablo/git/trabajochupiguay/Practica1/src/ejercicio1"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+	</list>
+	<section name="GitImportWizard">
+	</section>
+</section>

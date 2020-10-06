@@ -9,7 +9,6 @@ public class Main {
 		GestorContactos g = GestorContactos.getInstance(); /*Solicito un objeto gestorContactos
 		 													mediante el patron singleton*/
 		
-		
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
