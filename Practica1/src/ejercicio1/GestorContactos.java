@@ -9,10 +9,9 @@ public class GestorContactos {
 	private static GestorContactos gestor;
 	
 	private ArrayList<Contacto> contactos;
-
+	
 	private GestorContactos() {contactos = new ArrayList<Contacto>();}
-	
-	
+		
 	public static GestorContactos getInstance() {
 		
 		if(gestor == null) {
@@ -23,7 +22,7 @@ public class GestorContactos {
 		
 	}
 	
-	
+
 	
 	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN)
@@ -31,6 +30,77 @@ public class GestorContactos {
 		Contacto c = new Contacto(nombre,apellidos,email,fechaN);
 		contactos.add(c);
 	}
+	
+	
+	public boolean Obtencion_Intereses(String interesestotal) {
+		
+		String[] InteresElementos = interesestotal.split(",");
+		boolean aux;
+		
+		for (int i=0; i<InteresElementos.length-1; i++) {
+			aux=validarElemento(InteresElementos[i]);
+			if (!aux) {
+				InteresElementos = interesestotal.split(" ,");
+				for(int j=0;j<InteresElementos.length-1; j++) {
+					aux=validarElemento(InteresElementos[j]);
+					if(!aux) {
+						return false;
+					}
+				}
+			}
+		}
+	return true;
+	}
+	
+	public boolean validarElemento(String elemento) {
+		ArrayList<String> InteresesValidos= new ArrayList<String>() ;
+		boolean valido=false;
+		
+		InteresesValidos.add("Deporte");
+		InteresesValidos.add("deporte");
+		
+		InteresesValidos.add("Pesca");
+		InteresesValidos.add("pesca");
+		
+		InteresesValidos.add("Música");
+		InteresesValidos.add("musica");
+		InteresesValidos.add("Musica");
+		
+		
+		InteresesValidos.add("Cine");
+		InteresesValidos.add("cine");
+		
+		InteresesValidos.add("Pintura");
+		InteresesValidos.add("pintura");
+		
+		InteresesValidos.add("Viajes");
+		InteresesValidos.add("viajes");
+		
+		InteresesValidos.add("Fotografía");
+		InteresesValidos.add("fotografia");
+		InteresesValidos.add("fotografía");
+		
+		
+		InteresesValidos.add("Tecnología");
+		InteresesValidos.add("Tecnologia");
+		InteresesValidos.add("tecnologia");
+		
+		
+		
+		
+		for(int i=0 ;i<InteresesValidos.size();i++) {
+			if(InteresesValidos.get(i).contentEquals(elemento)) {
+				valido=true;
+			}
+		}
+		
+		return valido;
+	}
+	
+	
+	
+	
+	
 	
 	public void eliminarContacto() 
 	{

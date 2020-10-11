@@ -60,6 +60,28 @@ public class Main {
 					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 					fechaN = teclado.nextLine();
 				}
+				
+				System.out.println("Introduzca sus intereses");
+				System.out.println("Escriba alguno de los siguientes separado por comas\n");
+				System.out.println("Pintura    Música    Deporte  \n");
+				System.out.println("Pesca      Cine      Fotografía  \n");
+				System.out.println("Viajes     Tecnología \n");
+				
+				
+				String intereses = teclado.nextLine();
+				
+				g.Obtencion_Intereses(intereses);
+				
+				while(!g.Obtencion_Intereses(intereses)) {
+					System.out.println("\n Intereses no válidos");
+					System.out.println("Vuelva a introducir los intereses :    ");
+					System.out.println("Escriba alguno de los siguientes separado por comas\n");
+					System.out.println("Pintura    Música    Deporte  \n");
+					System.out.println("Pesca      Cine      Fotografía  \n");
+					System.out.println("Viajes     Tecnología \n");
+					intereses = teclado.nextLine();
+					
+				}
 								
 				
 				
