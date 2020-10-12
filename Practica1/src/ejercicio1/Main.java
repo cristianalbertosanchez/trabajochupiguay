@@ -44,7 +44,7 @@ public class Main {
 				System.out.println("Introduce email por favor : \n");
 				String contactoEmail= teclado.nextLine();
 													
-				while(g.existeContacto(contactoEmail)==-1 ) {
+				while(g.existeContacto(contactoEmail)==1 ) {
 					
 					System.out.println("Introduce de nuevo un email por favor : \n");
 					contactoEmail= teclado.nextLine();

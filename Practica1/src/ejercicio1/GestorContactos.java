@@ -57,17 +57,30 @@ public class GestorContactos {
 		
 		ArrayList<String> array = new ArrayList<String>();
 		array.add(cadena);
-		
+		boolean aux;
+				
 		String[] InteresElementos = cadena.split(",");
 		
 		
 		
 		for (int i=0; i<InteresElementos.length-1; i++) {
 			
-			array.add(InteresElementos[i]);
+			aux=validarElemento(InteresElementos[i]);
+			
+			if (!aux) {
 				
+				InteresElementos = cadena.split(" ,");
+				
+				for(int j=0;j<InteresElementos.length-1; j++) {
+					
+					aux=validarElemento(InteresElementos[j]);
+					
+					if (aux) {
+						array.add(InteresElementos[i]);
+					}
+				}
+			}
 		}
-		
 		
 		return array;
 	}
@@ -156,6 +169,12 @@ public class GestorContactos {
 					System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 					System.out.println("Email               : " + contactos.get(i).getEmail());
 					System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+					System.out.println("Intereses           : \n");
+					for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+					{
+						System.out.println(contactos.get(i).getIntereses().get(j));
+					}
+					
 					System.out.println("----------------------------");
 				}
 			}
@@ -189,6 +208,8 @@ public class GestorContactos {
 				System.out.println("2. Cambiar Apellidos.\n");
 				System.out.println("3. Cambiar Email.\n");
 				System.out.println("4. Cambiar Fecha de nacimiento.\n");
+				System.out.println("5. Cambiar Intereses.\n");
+				
 				System.out.println("0. Volver\n");
 					
 				System.out.println("Introducir opcion para ACTUALIZAR : \n");
@@ -239,10 +260,38 @@ public class GestorContactos {
 						}
 					break;
 					
+					case 5:
+						System.out.println("Introducir los nuevos intereses: \n");
+						System.out.println("Escriba alguno de los siguientes separado por comas\n");
+						System.out.println("Pintura    Música    Deporte  \n");
+						System.out.println("Pesca      Cine      Fotografía  \n");
+						System.out.println("Viajes     Tecnología \n");
+						String intereses = teclado.nextLine();
+						ArrayList<String> aux = new ArrayList<String>();
+						
+						Obtencion_Intereses(intereses);
+						
+						while(!Obtencion_Intereses(intereses)) {
+							System.out.println("\n Intereses no válidos");
+							System.out.println("Vuelva a introducir los intereses :    ");
+							System.out.println("Escriba alguno de los siguientes separado por comas\n");
+							System.out.println("Pintura    Música    Deporte  \n");
+							System.out.println("Pesca      Cine      Fotografía  \n");
+							System.out.println("Viajes     Tecnología \n");
+							intereses = teclado.nextLine();
+							
+						}
+										
+						aux = devolver_array(intereses);
+						contactos.get(i).addInteres(aux);
+						
+					break;
+					
+					
 					case 0:
 						
 					default:
-						System.out.println("Solo opciones entre 0 y 4.\n");
+						System.out.println("Solo opciones entre 0 y 5.\n");
 					break;
 				}
 				
@@ -250,6 +299,7 @@ public class GestorContactos {
 				
 				
 			}
+			
 		}
 	}
 		
@@ -265,6 +315,7 @@ public class GestorContactos {
 		System.out.println("1. Buscar por Nombre y apellidos.\n");
 		System.out.println("2. Buscar por Fecha de nacimiento\n");
 		System.out.println("3. Buscar por Email.\n");
+		System.out.println("4. Buscar por Intereses.\n");
 		System.out.println("0. Salir\n");
 		
 		
@@ -285,10 +336,19 @@ public class GestorContactos {
 							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 							System.out.println("Email               : " + contactos.get(i).getEmail());
 							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+							System.out.println("Intereses           : \n");
+							for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+							{
+								System.out.println(contactos.get(i).getIntereses().get(j));
+							}
+							
 							System.out.println("----------------------------");
 							
 							aux=true;
 						}
+					}
+					if(!aux) {
+						System.out.println("No se encuentran resultados");
 					}
 							
 					
@@ -305,8 +365,13 @@ public class GestorContactos {
 								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 								System.out.println("Email               : " + contactos.get(i).getEmail());
 								System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-								System.out.println("----------------------------");
+								System.out.println("Intereses           : \n");
+								for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+								{
+									System.out.println(contactos.get(i).getIntereses().get(j));
+								}
 								
+								System.out.println("----------------------------");
 								aux=true;
 							}
 						}
@@ -314,7 +379,9 @@ public class GestorContactos {
 					else {
 						System.out.println("Formato de Fecha no válido\n");
 					}
-					
+					if(!aux) {
+						System.out.println("No se encuentran resultados");
+					}
 					
 				break;
 				
@@ -330,12 +397,48 @@ public class GestorContactos {
 							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 							System.out.println("Email               : " + contactos.get(i).getEmail());
 							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-							System.out.println("----------------------------");
+							System.out.println("Intereses           :\n");
+							for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+							{
+								System.out.println(contactos.get(i).getIntereses().get(j));
+							}
 							
+							System.out.println("----------------------------");
 							aux=true;
 						}
 					}
+					if(!aux) {
+						System.out.println("No se encuentran resultados");
+					}
 					
+				break;
+				
+				case 4:
+					System.out.println( "Introduce el interes a buscar por favor : \n");
+					String interes_a_buscar = teclado.nextLine();
+					
+					for(int i=0;i<contactos.size();i++) {
+						for(int j=0;j<contactos.get(i).getIntereses().size();j++) {
+							if(contactos.get(i).getIntereses().get(j).contentEquals(interes_a_buscar)) {
+								System.out.println("\n");
+								System.out.println("Nombre              : " + contactos.get(i).getNombre());
+								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+								System.out.println("Email               : " + contactos.get(i).getEmail());
+								System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+								System.out.println("Intereses           : ");
+								for(int a=0;a<contactos.get(i).getIntereses().size();a++)
+								{
+									System.out.println(contactos.get(i).getIntereses().get(a));
+								}
+								
+								System.out.println("----------------------------");
+								aux=true;
+							}
+						}
+						if(!aux) {
+							System.out.println("No se encuentran resultados");
+						}
+					}
 				break;
 				
 				case 0:
@@ -359,7 +462,13 @@ public class GestorContactos {
 				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 				System.out.println("Email               : " + contactos.get(i).getEmail());
 				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-				System.out.println("Intereses 			: ");
+				System.out.println("Intereses           : \n");
+				
+				for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+				{
+					System.out.println(contactos.get(i).getIntereses().get(j));
+				}
+				
 				System.out.println("----------------------------");
 			}
 		}
