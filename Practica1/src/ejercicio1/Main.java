@@ -1,6 +1,7 @@
 package ejercicio1;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -69,6 +70,7 @@ public class Main {
 				
 				
 				String intereses = teclado.nextLine();
+				ArrayList<String> aux = new ArrayList<String>();
 				
 				g.Obtencion_Intereses(intereses);
 				
@@ -83,10 +85,10 @@ public class Main {
 					
 				}
 								
-				
+				aux = g.devolver_array(intereses);
 				
 				System.out.println("Contacto creado.\n");
-				g.crearContacto(nombre,apellidos,contactoEmail,fechaN);
+				g.crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();

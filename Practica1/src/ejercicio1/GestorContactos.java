@@ -25,9 +25,9 @@ public class GestorContactos {
 
 	
 	
-	public void crearContacto(String nombre,String apellidos,String email,String fechaN)
+	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
-		Contacto c = new Contacto(nombre,apellidos,email,fechaN);
+		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses);
 		contactos.add(c);
 	}
 	
@@ -36,6 +36,7 @@ public class GestorContactos {
 		
 		String[] InteresElementos = interesestotal.split(",");
 		boolean aux;
+		
 		
 		for (int i=0; i<InteresElementos.length-1; i++) {
 			aux=validarElemento(InteresElementos[i]);
@@ -51,6 +52,26 @@ public class GestorContactos {
 		}
 	return true;
 	}
+	
+	public ArrayList<String> devolver_array (String cadena){
+		
+		ArrayList<String> array = new ArrayList<String>();
+		array.add(cadena);
+		
+		String[] InteresElementos = cadena.split(",");
+		
+		
+		
+		for (int i=0; i<InteresElementos.length-1; i++) {
+			
+			array.add(InteresElementos[i]);
+				
+		}
+		
+		
+		return array;
+	}
+	
 	
 	public boolean validarElemento(String elemento) {
 		ArrayList<String> InteresesValidos= new ArrayList<String>() ;
@@ -332,11 +353,13 @@ public class GestorContactos {
 		if(contactos.isEmpty()) {
 			System.out.println("La lista esta vacia.\n");
 		}else {
+			
 			for(int i=0;i<contactos.size();i++) {
 				System.out.println("Nombre              : " + contactos.get(i).getNombre());
 				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
 				System.out.println("Email               : " + contactos.get(i).getEmail());
 				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+				System.out.println("Intereses 			: ");
 				System.out.println("----------------------------");
 			}
 		}
