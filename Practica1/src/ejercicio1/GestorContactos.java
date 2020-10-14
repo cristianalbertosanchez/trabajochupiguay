@@ -1,6 +1,14 @@
 package ejercicio1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Scanner;
 
 
@@ -58,6 +66,7 @@ public class GestorContactos {
 		ArrayList<String> array = new ArrayList<String>();
 		array.add(cadena);
 		boolean aux;
+		
 				
 		String[] InteresElementos = cadena.split(",");
 		
@@ -76,7 +85,7 @@ public class GestorContactos {
 					aux=validarElemento(InteresElementos[j]);
 					
 					if (aux) {
-						array.add(InteresElementos[i]);
+						array.add(InteresElementos[j]);
 					}
 				}
 			}
@@ -575,5 +584,82 @@ public class GestorContactos {
 	}
 	
 	
+	
+	public String getRuta() {
+		
+		String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+		String propertiesPath = rootPath+"fichero.properties";
+		
+		Properties appProperties = new Properties();
+		
+		try {
+			appProperties.load(new FileInputStream(propertiesPath));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		String ruta = appProperties.getProperty("ruta");
+		
+		return ruta;
+		
+		
+	}
+	
+	
+	public void escribirEnFichero(Contacto c) {
+		
+		String nombre = c.getNombre();
+		String apellidos = c.getApellidos();
+		String email = c.getEmail();
+		String fechaN = c.getFechaN();
+		ArrayList<String> intereses = c.getIntereses();
+		
+		
+		try {
+			FileWriter fichero = new FileWriter(getRuta()+"prueba.txt");
+			fichero.write(nombre);
+			fichero.write(apellidos);
+			fichero.write(email);
+			fichero.write(fechaN);
+			for(int i=0;i<intereses.size();i++) {
+				fichero.write(intereses.get(i));
+			}
+			fichero.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void leerDeFichero(String ruta) {
+		
+		String MensajeLeido = "";
+		try {
+			FileReader lector = new FileReader(ruta);			
+			BufferedReader BR = new BufferedReader(lector);
+			MensajeLeido = BR.readLine();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("El mensaje leido es : " + MensajeLeido);
+	}
+	
+	
+	public Contacto getContacto(String email) {
+		Contacto c = null;
+		for(int i=0;i<contactos.size();i++) {
+			if(!contactos.get(i).getEmail().contentEquals(email)) {
+				System.out.println("No se ha encontrado contacto.\n");
+			}else {
+				c = contactos.get(i);
+			}
+		}
+		return c;
+	}
 	
 }

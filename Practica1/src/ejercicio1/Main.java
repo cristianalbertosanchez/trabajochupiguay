@@ -15,13 +15,14 @@ public class Main {
 		boolean salir = false;
 		int opcion;
 		
-		
 		while(!salir) {
 			System.out.println("1. Crear contacto.\n");
 			System.out.println("2. Eliminar contacto.\n");
 			System.out.println("3. Buscar contacto.\n");
 			System.out.println("4. Actualizar contacto.\n");
 			System.out.println("5. Mostrar contactos.\n");
+			System.out.println("6. Guardar en fichero.\n");
+			System.out.println("7. Leer fichero.\n");
 			System.out.println("0. Salir\n");
 			
 			
@@ -128,7 +129,22 @@ public class Main {
 				
 				break;	
 				
+			case 6:
+				String email;
+				Contacto c;
+				System.out.println("Introducir el email del contacto que quiere guardar.\n");
+				email = teclado.nextLine();
 				
+				c = g.getContacto(email);
+				
+				g.escribirEnFichero(c);
+				
+			break;
+			
+			case 7:
+				
+			break;	
+					
 			case 0:
 				System.out.println("Saliendo del programa ...\n");
 				salir = true;
