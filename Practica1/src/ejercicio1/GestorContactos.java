@@ -587,8 +587,8 @@ public class GestorContactos {
 	
 	public String getRuta() {
 		
-		String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-		String propertiesPath = rootPath+"fichero.properties";
+		File file = new File("C:\\Users\\w10\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
+		String propertiesPath = file.getAbsolutePath();
 		
 		Properties appProperties = new Properties();
 		
@@ -601,6 +601,7 @@ public class GestorContactos {
 		}
 		
 		String ruta = appProperties.getProperty("ruta");
+		
 		
 		return ruta;
 		
@@ -616,15 +617,19 @@ public class GestorContactos {
 		String fechaN = c.getFechaN();
 		ArrayList<String> intereses = c.getIntereses();
 		
+		String rutaFichero = getRuta()+"\\fichero1.txt";
+		
+		System.out.println(rutaFichero);
+		
 		
 		try {
-			FileWriter fichero = new FileWriter(getRuta()+"prueba.txt");
-			fichero.write(nombre);
-			fichero.write(apellidos);
-			fichero.write(email);
-			fichero.write(fechaN);
+			FileWriter fichero = new FileWriter(rutaFichero);
+			fichero.write(nombre+"\n");
+			fichero.write(apellidos+"\n");
+			fichero.write(email+"\n");
+			fichero.write(fechaN+"\n");
 			for(int i=0;i<intereses.size();i++) {
-				fichero.write(intereses.get(i));
+				fichero.write(intereses.get(i)+"\n");
 			}
 			fichero.close();
 		} catch (IOException e) {
@@ -638,15 +643,23 @@ public class GestorContactos {
 		
 		String MensajeLeido = "";
 		try {
-			FileReader lector = new FileReader(ruta);			
-			BufferedReader BR = new BufferedReader(lector);
-			MensajeLeido = BR.readLine();
+			FileReader entrada = new FileReader(ruta+"\\fichero1.txt");			
+			BufferedReader buffer = new BufferedReader(entrada);
+			
+			String linea = buffer.readLine();
+			
+			while(linea!=null) {
+				System.out.println(linea);
+				linea = buffer.readLine();
+			}
+			System.out.println("");
+			
+			entrada.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("El mensaje leido es : " + MensajeLeido);
 	}
 	
 	
