@@ -707,7 +707,7 @@ public class GestorContactos {
 	
 	
 	public void leerDeFichero(String ruta) {
-		
+		System.out.println("hola");
 		String MensajeLeido = "";
 		try {
 			FileReader entrada = new FileReader(ruta+"\\fichero1.txt");			
