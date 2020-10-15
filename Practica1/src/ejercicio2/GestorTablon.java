@@ -1,12 +1,6 @@
 package ejercicio2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
@@ -21,7 +15,7 @@ public class GestorTablon {
 	private ArrayList<Anuncio> contactos;
 	
 	private GestorTablon() {contactos = new ArrayList<Anuncio>();}
-	private GestorContactos g;
+	public GestorContactos g= new GestorContactos();
 	
 		
 	public static GestorTablon getInstance() {
@@ -34,7 +28,31 @@ public class GestorTablon {
 		}
 	
 	
-		public void IniciarSesion() {
+		public Contacto IniciarSesion() {
+			Scanner sn = new Scanner(System.in);
+			Scanner teclado = new Scanner(System.in);
+			
+			System.out.println("Correo Electrónico:");
+			String email = teclado.nextLine();
+			
+			
+			Contacto c=null;
+			
+			if(g.existeContacto(email)==1) {
+				
+				
+			}
+			else if (g.existeContacto(email)==-1) {
+				System.out.println("Correo introducido no válido\n");
+				
+			}
+			else {
+				System.out.println("Este correo no se encuentra asociado a ninguna cuenta\n");
+			}
+			
+			return c;
+			
+			
 			
 		}	
 		
