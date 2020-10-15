@@ -72,7 +72,8 @@ public class Main {
 				
 				String intereses = teclado.nextLine();
 				ArrayList<String> aux = new ArrayList<String>();
-				
+				boolean recomprobar;
+		
 				g.Obtencion_Intereses(intereses);
 				
 				while(!g.Obtencion_Intereses(intereses)) {
@@ -86,10 +87,17 @@ public class Main {
 					
 				}
 								
-				aux = g.devolver_array(intereses);
+						
+				recomprobar=g.Obtencion_Intereses(intereses);
+				if(recomprobar) {
+					aux = g.devolver_array(intereses);
+					System.out.println("Contacto creado.\n");
+					g.crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
+				}
+				else {
+					System.out.println("Contacto no creado, vuelva a intentarlo");
+				}
 				
-				System.out.println("Contacto creado.\n");
-				g.crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();

@@ -50,11 +50,10 @@ public class GestorContactos {
 			aux=validarElemento(InteresElementos[i]);
 			if (!aux) {
 				InteresElementos = interesestotal.split(" ,");
-				for(int j=0;j<InteresElementos.length-1; j++) {
-					aux=validarElemento(InteresElementos[j]);
+					aux=validarElemento(InteresElementos[i]);
 					if(!aux) {
 						return false;
-					}
+					
 				}
 			}
 		}
@@ -80,14 +79,13 @@ public class GestorContactos {
 				
 				InteresElementos = cadena.split(" ,");
 				
-				for(int j=0;j<InteresElementos.length-1; j++) {
-					
-					aux=validarElemento(InteresElementos[j]);
+				
+					aux=validarElemento(InteresElementos[i]);
 					
 					if (aux) {
-						array.add(InteresElementos[j]);
+						array.add(InteresElementos[i]);
+					
 					}
-				}
 			}
 		}
 		
@@ -97,7 +95,7 @@ public class GestorContactos {
 	
 	public boolean validarElemento(String elemento) {
 		ArrayList<String> InteresesValidos= new ArrayList<String>() ;
-		boolean valido=false;
+		boolean valido=true;
 		
 		InteresesValidos.add("Deporte");
 		InteresesValidos.add("deporte");
@@ -132,7 +130,7 @@ public class GestorContactos {
 		
 		
 		for(int i=0 ;i<InteresesValidos.size();i++) {
-			if(InteresesValidos.get(i).contentEquals(elemento)) {
+			if(InteresesValidos.get(i)==elemento) {
 				valido=true;
 			}
 		}
