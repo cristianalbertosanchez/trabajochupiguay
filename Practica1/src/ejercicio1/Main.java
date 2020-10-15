@@ -16,6 +16,8 @@ public class Main {
 		int opcion;
 		
 		while(!salir) {
+			System.out.println("MENU DE GESTOR DE CONTACTOS");
+			System.out.println("");
 			System.out.println("1. Crear contacto.\n");
 			System.out.println("2. Eliminar contacto.\n");
 			System.out.println("3. Buscar contacto.\n");
@@ -150,6 +152,9 @@ public class Main {
 			break;
 			
 			case 7:
+				String ruta;
+				ruta = g.getRuta();
+				g.leerDeFichero(ruta);
 				
 			break;	
 					
