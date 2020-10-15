@@ -21,6 +21,8 @@ public class GestorTablon {
 	private ArrayList<Anuncio> contactos;
 	
 	private GestorTablon() {contactos = new ArrayList<Anuncio>();}
+	private GestorContactos g;
+	
 		
 	public static GestorTablon getInstance() {
 		
@@ -37,11 +39,8 @@ public class GestorTablon {
 		}	
 		
 		public void Registrarse() {
-			
-			String nombre,apellidos,email,fechaN;
-			ArrayList<String> intereses;
-			g.crearContacto(nombre,apellidos,email,fechaN,intereses);
-			
+
+			g.CreacionContacto();
 			
 		}
 		
