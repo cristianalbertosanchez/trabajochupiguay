@@ -7,10 +7,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.Scanner;
-
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class GestorContactos {
 
@@ -18,7 +29,7 @@ public class GestorContactos {
 	
 	private ArrayList<Contacto> contactos;
 	
-	private GestorContactos() {contactos = new ArrayList<Contacto>();}
+	public GestorContactos() {contactos = new ArrayList<Contacto>();}
 		
 	public static GestorContactos getInstance() {
 		
@@ -30,7 +41,8 @@ public class GestorContactos {
 		
 	}
 	
-	public void CreacionContacto() {
+	
+	public void CreacionContacto() { 						//FunciÛn encargada de Crear los contactos
 		
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
@@ -382,8 +394,8 @@ public class GestorContactos {
 	
 	
 	public boolean buscarContacto(){
-		boolean aux;
-		aux=false;
+		boolean aux=false;
+
 		int opcion;
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
@@ -405,59 +417,35 @@ public class GestorContactos {
 					System.out.println( "Introduce los apellidos por favor : \n");
 					String apellidos = teclado.nextLine();
 					
-					for(int i=0;i<contactos.size();i++) {
-						if(contactos.get(i).getNombre().contentEquals(nombre)&&contactos.get(i).getApellidos().contentEquals(apellidos)) {
-							System.out.println("\n");
-							System.out.println("Nombre              : " + contactos.get(i).getNombre());
-							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-							System.out.println("Email               : " + contactos.get(i).getEmail());
-							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-							System.out.println("Intereses           : \n");
-							for(int j=0;j<contactos.get(i).getIntereses().size();j++)
-							{
-								System.out.println(contactos.get(i).getIntereses().get(j));
-							}
+						if(	BusquedaNombreApellidos(nombre,apellidos)) {
 							
-							System.out.println("----------------------------");
-							
+							BusquedaNombreApellidos(nombre,apellidos);
 							aux=true;
-						}
-					}
-					if(!aux) {
-						System.out.println("No se encuentran resultados");
-					}
+						}else {
+							System.out.println("No se encuentran resultados");
 							
-					
+						}
+
 				break;
 				
 				case 2:
 					System.out.println( "Introduce la fecha de nacimiento con el siguiente formato DD/MM/AAAA : \n");
 					String fecha = teclado.nextLine();
+					
 					if(validarFecha(fecha)) {
-						for(int i=0;i<contactos.size();i++) {
-							if(contactos.get(i).getFechaN().contentEquals(fecha)) {
-								System.out.println("\n");
-								System.out.println("Nombre              : " + contactos.get(i).getNombre());
-								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-								System.out.println("Email               : " + contactos.get(i).getEmail());
-								System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-								System.out.println("Intereses           : \n");
-								for(int j=0;j<contactos.get(i).getIntereses().size();j++)
-								{
-									System.out.println(contactos.get(i).getIntereses().get(j));
-								}
-								
-								System.out.println("----------------------------");
-								aux=true;
-							}
+						if (BusquedaEdad(fecha)) {
+							BusquedaEdad(fecha);
+							aux=true;
+						}
+						else {
+							System.out.println("No hemos encontrado usuarios con esa edad");
 						}
 					}
 					else {
-						System.out.println("Formato de Fecha no v·lido\n");
+						System.out.println("Formato de fecha no correcto");
+
 					}
-					if(!aux) {
-						System.out.println("No se encuentran resultados");
-					}
+					
 					
 				break;
 				
@@ -466,26 +454,15 @@ public class GestorContactos {
 					System.out.println( "Introduce el email a buscar por favor : \n");
 					String Email = teclado.nextLine();
 					
-					for(int i=0;i<contactos.size();i++) {
-						if(contactos.get(i).getEmail().contentEquals(Email)) {
-							System.out.println("\n");
-							System.out.println("Nombre              : " + contactos.get(i).getNombre());
-							System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-							System.out.println("Email               : " + contactos.get(i).getEmail());
-							System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-							System.out.println("Intereses           :\n");
-							for(int j=0;j<contactos.get(i).getIntereses().size();j++)
-							{
-								System.out.println(contactos.get(i).getIntereses().get(j));
-							}
-							
-							System.out.println("----------------------------");
+						if(BusquedaEmail(Email)) {
+							BusquedaEmail(Email);
 							aux=true;
 						}
-					}
-					if(!aux) {
-						System.out.println("No se encuentran resultados");
-					}
+						else {
+							System.out.println("No se encuentran resultados");
+
+						}
+
 					
 				break;
 				
@@ -493,28 +470,14 @@ public class GestorContactos {
 					System.out.println( "Introduce el interes a buscar por favor : \n");
 					String interes_a_buscar = teclado.nextLine();
 					
-					for(int i=0;i<contactos.size();i++) {
-						for(int j=0;j<contactos.get(i).getIntereses().size();j++) {
-							if(contactos.get(i).getIntereses().get(j).contentEquals(interes_a_buscar)) {
-								System.out.println("\n");
-								System.out.println("Nombre              : " + contactos.get(i).getNombre());
-								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-								System.out.println("Email               : " + contactos.get(i).getEmail());
-								System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-								System.out.println("Intereses           : ");
-								for(int a=0;a<contactos.get(i).getIntereses().size();a++)
-								{
-									System.out.println(contactos.get(i).getIntereses().get(a));
-								}
-								
-								System.out.println("----------------------------");
-								aux=true;
-							}
+						if(BusquedaIntereses(interes_a_buscar)) {
+							BusquedaIntereses(interes_a_buscar);
+							aux=true;
 						}
-						if(!aux) {
+						else{
 							System.out.println("No se encuentran resultados");
 						}
-					}
+					
 				break;
 				
 				case 0:
@@ -527,6 +490,157 @@ public class GestorContactos {
 		
 		return aux;
 	}
+	
+	
+	public boolean BusquedaNombreApellidos(String nombre, String apellidos) {
+		
+		for(int i=0;i<contactos.size();i++) {
+			if(contactos.get(i).getNombre().contentEquals(nombre)&&contactos.get(i).getApellidos().contentEquals(apellidos)) {
+				System.out.println("\n");
+				System.out.println("Nombre              : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+				System.out.println("Email               : " + contactos.get(i).getEmail());
+				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+				System.out.println("Intereses           : \n");
+				for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+				{
+					System.out.println(contactos.get(i).getIntereses().get(j));
+				}
+				
+				System.out.println("----------------------------");
+				
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
+	
+	
+	
+	public boolean BusquedaEmail(String Email) {
+		for(int i=0;i<contactos.size();i++) {
+			if(contactos.get(i).getEmail().contentEquals(Email)) {
+				System.out.println("\n");
+				System.out.println("Nombre              : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+				System.out.println("Email               : " + contactos.get(i).getEmail());
+				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+				System.out.println("Intereses           :\n");
+				for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+				{
+					System.out.println(contactos.get(i).getIntereses().get(j));
+				}
+				
+				System.out.println("----------------------------");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public boolean BusquedaIntereses(String interes_a_buscar) {
+		for(int i=0;i<contactos.size();i++) {
+			for(int j=0;j<contactos.get(i).getIntereses().size();j++) {
+				if(contactos.get(i).getIntereses().get(j).contentEquals(interes_a_buscar)) {
+					System.out.println("\n");
+					System.out.println("Nombre              : " + contactos.get(i).getNombre());
+					System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+					System.out.println("Email               : " + contactos.get(i).getEmail());
+					System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+					System.out.println("Intereses           : ");
+					for(int a=0;a<contactos.get(i).getIntereses().size();a++)
+					{
+						System.out.println(contactos.get(i).getIntereses().get(a));
+					}
+					
+					System.out.println("----------------------------");
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
+	}
+	
+	
+	
+	public static int calcularEdad(String fecha) {
+        String datetext = fecha;
+        try {
+            Calendar birth = new GregorianCalendar();
+            Calendar today = new GregorianCalendar();
+            int age = 0;
+            int factor = 0;
+            Date birthDate = new SimpleDateFormat("dd-MM-yyyy").parse(datetext);
+            Date currentDate = new Date(); //current date
+            birth.setTime(birthDate);
+            today.setTime(currentDate);
+            if (today.get(Calendar.MONTH) <= birth.get(Calendar.MONTH)) {
+                if (today.get(Calendar.MONTH) == birth.get(Calendar.MONTH)) {
+                    if (today.get(Calendar.DATE) > birth.get(Calendar.DATE)) {
+                        factor = -1; //Aun no celebra su cumplea√±os
+                    }
+                } else {
+                    factor = -1; //Aun no celebra su cumplea√±os
+                }
+            }
+            age = (today.get(Calendar.YEAR) - birth.get(Calendar.YEAR)) + factor;
+            return age;
+        } catch (ParseException e) {
+            return -1;
+        }
+
+}
+	
+
+		
+	
+	
+	public boolean BusquedaEdad(String fecha) {
+		
+
+			int edad=calcularEdad(fecha);
+		
+		
+		
+			for(int i=0;i<contactos.size();i++) {
+				if(calcularEdad(contactos.get(i).getFechaN())==edad) {
+					System.out.println("\n");
+					System.out.println("Nombre              : " + contactos.get(i).getNombre());
+					System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+					System.out.println("Email               : " + contactos.get(i).getEmail());
+					System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+					System.out.println("Intereses           : \n");
+					for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+					{
+						System.out.println(contactos.get(i).getIntereses().get(j));
+					}
+					
+					System.out.println("----------------------------");
+					return true;
+				}
+			}
+	
+			return false;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void mostrarContactos() {
 		if(contactos.isEmpty()) {
@@ -743,3 +857,6 @@ public class GestorContactos {
 	}
 	
 }
+
+
+
