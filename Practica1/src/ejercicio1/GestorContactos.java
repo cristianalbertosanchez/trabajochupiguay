@@ -856,4 +856,6 @@ public class GestorContactos {
 		verIntereses(c.getIntereses());
 	}
 	
+
+	
 }

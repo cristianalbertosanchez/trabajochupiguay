@@ -40,7 +40,7 @@ public class GestorTablon {
 			
 			if(g.existeContacto(email)==1) {
 				
-				
+				c = g.getContacto(email);
 			}
 			else if (g.existeContacto(email)==-1) {
 				System.out.println("Correo introducido no válido\n");
