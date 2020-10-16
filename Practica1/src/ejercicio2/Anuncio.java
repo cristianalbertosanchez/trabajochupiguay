@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Anuncio {
 
 	
-	private String id;
+	private int id;
 	private String titulo;
 	private String fecha_inicio;
 	private String fecha_fin;
@@ -15,9 +15,9 @@ public class Anuncio {
 	private String cuerpo;
 	private String tipo;
 	
-	public Anuncio(String id,String titulo,String fecha_inicio,String fecha_fin,String usuario_prop, ArrayList<String>usuario_dest, String cuerpo, String tipo) {this.id = id; this.titulo = titulo;this.fecha_inicio = fecha_inicio;this.fecha_fin = fecha_fin; this.usuario_prop = usuario_prop;this.usuario_dest = usuario_dest;this.cuerpo = cuerpo;this.tipo = tipo;}
+	public Anuncio(int id,String titulo,String fecha_inicio,String fecha_fin,String usuario_prop, ArrayList<String>usuario_dest, String cuerpo, String tipo) {this.id = id; this.titulo = titulo;this.fecha_inicio = fecha_inicio;this.fecha_fin = fecha_fin; this.usuario_prop = usuario_prop;this.usuario_dest = usuario_dest;this.cuerpo = cuerpo;this.tipo = tipo;}
 	
-	public String getId() {return id;}
+	public int getId() {return id;}
 	public String getTitulo(){return this.titulo;}
 	public String getFechaInicio(){return this.fecha_inicio;}
 	public String getFechaFin(){return this.fecha_fin;}
@@ -26,7 +26,7 @@ public class Anuncio {
 	public String getCuerpo() {return this.cuerpo;}
 	public String getTipo() {return this.tipo;}
 	
-	public void setId(String id) {this.id = id;}
+	public void setId(int id) {this.id = id;}
 	public void setTitulo(String titulo) {this.titulo = titulo;}
 	public void setFechaInicio(String fecha_inicio) {this.fecha_inicio = fecha_inicio;}
 	public void setFechaFin(String fecha_fin) {this.fecha_fin = fecha_fin;}
