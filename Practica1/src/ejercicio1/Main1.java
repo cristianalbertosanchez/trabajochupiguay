@@ -56,7 +56,7 @@ public class Main1 {
 				System.out.println("Introduce email por favor : \n");
 				String contactoEmail= teclado.nextLine();
 													
-				while(g.existeContacto(contactoEmail)==1 ) {
+				while(g.existeContacto(contactoEmail)!=0 ) {
 					
 					System.out.println("Introduce de nuevo un email por favor : \n");
 					contactoEmail= teclado.nextLine();
@@ -109,7 +109,7 @@ public class Main1 {
 			case 2: 
 				//Eliminar contacto
 				g.eliminarContacto();
-				g.escribirEnFichero(g.getContactos());
+				g.escribirEnFichero();
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				
@@ -143,7 +143,7 @@ public class Main1 {
 			case 0:
 				//Aqui guardamos todos los contactos que tengamos en el fichero de contactos.
 				System.out.println("Guardando contactos en fichero...\n");
-				g.escribirEnFichero(g.getContactos());
+				g.escribirEnFichero();
 				//-----------------------------------------------------------------------------
 				System.out.println("Saliendo del programa ...\n");
 				salir = true;

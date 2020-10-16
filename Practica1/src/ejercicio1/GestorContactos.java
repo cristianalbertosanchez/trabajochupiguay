@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class GestorContactos {
@@ -212,6 +217,20 @@ public class GestorContactos {
 		
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
+				System.out.println("Contacto a actualizar:\n");
+				System.out.println("Nombre              : " + contactos.get(i).getNombre());
+				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
+				System.out.println("Email               : " + contactos.get(i).getEmail());
+				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
+				System.out.println("Intereses           : \n");
+				for(int j=0;j<contactos.get(i).getIntereses().size();j++)
+				{
+					System.out.println(contactos.get(i).getIntereses().get(j));
+				}
+				
+				System.out.println("----------------------------");
+				
+				
 				
 				Scanner sn = new Scanner(System.in);
 				Scanner teclado = new Scanner(System.in);
@@ -314,7 +333,40 @@ public class GestorContactos {
 			
 		}
 	}
-		
+	
+	
+	
+	public static int calcularEdad(String fecha) {
+        String datetext = fecha;
+        try {
+            Calendar birth = new GregorianCalendar();
+            Calendar today = new GregorianCalendar();
+            int age = 0;
+            int factor = 0;
+            Date birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(datetext);
+            Date currentDate = new Date(); //current date
+            birth.setTime(birthDate);
+            today.setTime(currentDate);
+            if (today.get(Calendar.MONTH) <= birth.get(Calendar.MONTH)) {
+                if (today.get(Calendar.MONTH) == birth.get(Calendar.MONTH)) {
+                    if (today.get(Calendar.DATE) > birth.get(Calendar.DATE)) {
+                        factor = -1; //Aun no celebra su cumpleaños
+                    }
+                } else {
+                    factor = -1; //Aun no celebra su cumpleaños
+                }
+            }
+            age = (today.get(Calendar.YEAR) - birth.get(Calendar.YEAR)) + factor;
+            return age;
+        } catch (ParseException e) {
+            return -1;
+        }
+
+}
+	
+	
+	
+	
 	
 	
 	public boolean buscarContacto(){
@@ -325,7 +377,7 @@ public class GestorContactos {
 		Scanner teclado = new Scanner(System.in);
 		
 		System.out.println("1. Buscar por Nombre y apellidos.\n");
-		System.out.println("2. Buscar por Fecha de nacimiento\n");
+		System.out.println("2. Buscar por Edad\n");
 		System.out.println("3. Buscar por Email.\n");
 		System.out.println("4. Buscar por Intereses.\n");
 		System.out.println("0. Salir\n");
@@ -367,11 +419,14 @@ public class GestorContactos {
 				break;
 				
 				case 2:
-					System.out.println( "Introduce la fecha de nacimiento con el siguiente formato DD/MM/AAAA : \n");
-					String fecha = teclado.nextLine();
-					if(validarFecha(fecha)) {
+					System.out.println( "Introduce la edad de los contactos a buscar : \n");
+					int edad_a_buscar = sn.nextInt();
+					String edad_usuario;
+					
 						for(int i=0;i<contactos.size();i++) {
-							if(contactos.get(i).getFechaN().contentEquals(fecha)) {
+							edad_usuario=contactos.get(i).getFechaN();
+							
+							if(edad_a_buscar==calcularEdad(edad_usuario)) {
 								System.out.println("\n");
 								System.out.println("Nombre              : " + contactos.get(i).getNombre());
 								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
@@ -387,10 +442,7 @@ public class GestorContactos {
 								aux=true;
 							}
 						}
-					}
-					else {
-						System.out.println("Formato de Fecha no v�lido\n");
-					}
+			
 					if(!aux) {
 						System.out.println("No se encuentran resultados");
 					}
@@ -598,40 +650,45 @@ public class GestorContactos {
 	}
 	
 	
-	public void escribirEnFichero(ArrayList<Contacto> c) {
+	public void escribirEnFichero() {
 		
 		String nombre = "";
 		String apellidos = "";
 		String email = "";
 		String fechaN = "";
 		ArrayList<String> intereses = new ArrayList<String>();
-		
-		for(int i=0;i<c.size();i++) {
-			nombre = c.get(i).getNombre();
-			apellidos = c.get(i).getApellidos();
-			email = c.get(i).getEmail();
-			fechaN = c.get(i).getFechaN();
-			intereses = c.get(i).getIntereses();
-		}
-		
-		
 		String rutaFichero = getRuta()+"\\fichero1.txt";
 		
-		
-		
+
 		try {
-			FileWriter fichero = new FileWriter(rutaFichero,true);
-			fichero.write(nombre+"\n");
-			fichero.write(apellidos+"\n");
-			fichero.write(email+"\n");
-			fichero.write(fechaN+"\n");
-			for(int i=0;i<intereses.size();i++) {
-				fichero.write(intereses.get(i)+"\n");
+			FileWriter fichero = new FileWriter(rutaFichero);
+			
+			for(int i=0;i<contactos.size();i++) {
+				nombre = contactos.get(i).getNombre();
+				apellidos = contactos.get(i).getApellidos();
+				email = contactos.get(i).getEmail();
+				fechaN = contactos.get(i).getFechaN();
+				intereses = contactos.get(i).getIntereses();
+
+				fichero.write(nombre+"\n");
+				fichero.write(apellidos+"\n");
+				fichero.write(email+"\n");
+				fichero.write(fechaN+"\n");
+				for(int j=0;j<intereses.size();j++) {
+					fichero.write(intereses.get(j)+"\n");
+				}
+				
 			}
 			fichero.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		
+		
+		
+
 		
 	}
 	
