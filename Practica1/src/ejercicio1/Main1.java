@@ -149,7 +149,7 @@ public class Main1 {
 				salir = true;
 				break;
 			default:
-				System.out.println("Solo opciones entre 1 y 6.\n");
+				System.out.println("Solo opciones entre 1 y 6.\n"); //En caso de que la opción introducida no sea válida
 					
 			}
 		}
