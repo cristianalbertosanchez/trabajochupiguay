@@ -1,6 +1,7 @@
 package ejercicio2;
 import java.util.Scanner;
 
+import ejercicio1.Contacto;
 import ejercicio1.GestorContactos;
 
 import java.util.ArrayList;
@@ -8,12 +9,24 @@ import java.util.ArrayList;
 public class main{
 	
 	public static void main(String[] args) {
-		
+		GestorContactos g = GestorContactos.getInstance();
 		GestorTablon t = GestorTablon.getInstance(); /*Solicito un objeto gestorContactos mediante el patron singleton*/	
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
 		int opcion1;
+		ArrayList<Contacto> recibidos = new ArrayList<Contacto>();
+
+		
+		String ruta;
+		ruta = g.getRuta();
+		recibidos = g.leerDeFichero(ruta);
+		for(int i=0;i<recibidos.size();i++) {
+			g.crearContacto(recibidos.get(i));
+		}
+		
+		g.mostrarContactos();
+		
 		
 		while(!salir) {
 			
@@ -34,10 +47,14 @@ public class main{
 			
 			case 1:
 				t.IniciarSesion();
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			
 			case 2:
 				t.Registrarse();
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			
 			case 0:
