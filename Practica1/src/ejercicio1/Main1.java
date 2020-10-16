@@ -43,26 +43,73 @@ public class Main1 {
 			switch(opcion){
 			case 1: //Añadir contacto
 				
+				
+				
+				System.out.println( "Introduce nombre por favor : \n");
+				
+				String nombre = teclado.nextLine();
+				
+				System.out.println( "Introduce apellidos por favor : \n");
+				
+				String apellidos = teclado.nextLine();
+				
 				System.out.println("Introduce email por favor : \n");
 				String contactoEmail= teclado.nextLine();
 													
-				while(g.existeContacto(contactoEmail)!=0 ) {
-					System.out.println("El email no es válido o ya se encuentra en uso\n");
+				while(g.existeContacto(contactoEmail)==1 ) {
+					
 					System.out.println("Introduce de nuevo un email por favor : \n");
 					contactoEmail= teclado.nextLine();
 				}
 				
-				g.CreacionContacto(contactoEmail);
+				
+				System.out.println("Introduce la fecha de nacimiento :    ");
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				String fechaN = teclado.nextLine();
+				
+				while(!g.validarFecha(fechaN)) {
+					System.out.println("\nFecha no válida");
+					System.out.println("Introduce la fecha de nacimiento :    ");
+					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+					fechaN = teclado.nextLine();
+				}
+				
+				System.out.println("Introduzca sus intereses");
+				System.out.println("Escriba alguno de los siguientes separado por comas\n");
+				System.out.println("Pintura    Música    Deporte  \n");
+				System.out.println("Pesca      Cine      Fotografía  \n");
+				System.out.println("Viajes     Tecnología \n");
+				
+				
+				String intereses = teclado.nextLine();
+				ArrayList<String> aux = new ArrayList<String>();
+				
+				g.Obtencion_Intereses(intereses);
+				
+				while(!g.Obtencion_Intereses(intereses)) {
+					System.out.println("\n Intereses no válidos");
+					System.out.println("Vuelva a introducir los intereses :    ");
+					System.out.println("Escriba alguno de los siguientes separado por comas\n");
+					System.out.println("Pintura    Música    Deporte  \n");
+					System.out.println("Pesca      Cine      Fotografía  \n");
+					System.out.println("Viajes     Tecnología \n");
+					intereses = teclado.nextLine();
+					
+				}
+								
+				aux = g.devolver_array(intereses);
+				
+				System.out.println("Contacto creado.\n");
+				g.crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
-
 				break;
 				
 			case 2: 
 				//Eliminar contacto
 				g.eliminarContacto();
-				g.escribirEnFichero();
+				g.escribirEnFichero(g.getContactos());
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				
@@ -81,7 +128,6 @@ public class Main1 {
 				System.out.println("Introducir email de el contacto a actualizar : \n");
 				cadena3 = teclado.nextLine();
 				g.actualizarContacto(cadena3);
-				g.escribirEnFichero();
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
@@ -96,14 +142,14 @@ public class Main1 {
 					
 			case 0:
 				//Aqui guardamos todos los contactos que tengamos en el fichero de contactos.
-				System.out.println("Guardando automáticamente los contactos en fichero...\n");
-				g.escribirEnFichero();
+				System.out.println("Guardando contactos en fichero...\n");
+				g.escribirEnFichero(g.getContactos());
 				//-----------------------------------------------------------------------------
 				System.out.println("Saliendo del programa ...\n");
 				salir = true;
 				break;
 			default:
-				System.out.println("Solo opciones entre 1 y 6.\n");
+				System.out.println("Solo opciones entre 1 y 6.\n"); //En caso de que la opción introducida no sea válida
 					
 			}
 		}
