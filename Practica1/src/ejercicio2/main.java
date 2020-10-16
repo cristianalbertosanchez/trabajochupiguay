@@ -25,7 +25,7 @@ public class main{
 			g.crearContacto(recibidos.get(i));
 		}
 		
-		g.mostrarContactos();
+		
 		
 		
 		while(!salir) {

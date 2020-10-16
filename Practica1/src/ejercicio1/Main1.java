@@ -79,6 +79,7 @@ public class Main1 {
 				System.out.println("Introducir email de el contacto a actualizar : \n");
 				cadena3 = teclado.nextLine();
 				g.actualizarContacto(cadena3);
+				g.escribirEnFichero(g.getContactos());
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();

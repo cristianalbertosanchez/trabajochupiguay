@@ -254,45 +254,37 @@ public class GestorTablon {
 			switch(op) {
 			
 			case 1:
-				GestorContactos.clearConsole();
 				
 				tipo="General";
 				SolicitarInfoAnuncio(tipo,c);
 								
-				GestorContactos.press_any_key_to_continue();
-				GestorContactos.clearConsole();
+				
 				break;
 			
 			case 2:
-				GestorContactos.clearConsole();
 				
 				tipo="Tematico";				
 				SolicitarInfoAnuncio(tipo,c);
 				
-				GestorContactos.press_any_key_to_continue();
-				GestorContactos.clearConsole();
+				
 				break;
 			case 3:
-				GestorContactos.clearConsole();
+				
 				
 				tipo="Individualizado";
 				SolicitarInfoAnuncio(tipo,c);
 				
-				GestorContactos.press_any_key_to_continue();
-				GestorContactos.clearConsole();
 				break;
 			case 4:
-				GestorContactos.clearConsole();
+				
 				
 				tipo="Flash";
 				SolicitarInfoAnuncio(tipo,c);
 				
-				GestorContactos.press_any_key_to_continue();
-				GestorContactos.clearConsole();
+				
 				break;
 			default: 
-				GestorContactos.press_any_key_to_continue();
-				GestorContactos.clearConsole();
+				
 			break;
 			
 			}

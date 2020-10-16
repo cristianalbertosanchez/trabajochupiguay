@@ -79,7 +79,7 @@ public class GestorContactos {
 		System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 		String fechaN = teclado.nextLine();
 		
-		while(validarFecha(fechaN)) {
+		while(!validarFecha(fechaN)) {
 			System.out.println("\nFecha no válida");
 			System.out.println("Introduce la fecha de nacimiento :    ");
 			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
@@ -97,22 +97,13 @@ public class GestorContactos {
 		ArrayList<String> aux = new ArrayList<String>();
 		
 		Obtencion_Intereses(intereses);
-		
-		while(!Obtencion_Intereses(intereses)) {
-			System.out.println("\n Intereses no válidos");
-			System.out.println("Vuelva a introducir los intereses :    ");
-			System.out.println("Escriba alguno de los siguientes separado por comas\n");
-			System.out.println("Pintura    Música    Deporte  \n");
-			System.out.println("Pesca      Cine      Fotografía  \n");
-			System.out.println("Viajes     Tecnología \n");
-			intereses = teclado.nextLine();
-			
-		}
+
 						
 		aux = devolver_array(intereses);
 		
 		System.out.println("Contacto creado.\n");
 		crearContacto(nombre,apellidos,email,fechaN,aux);
+		escribirEnFichero(getContactos());
 	}
 	
 	
@@ -254,21 +245,7 @@ public class GestorContactos {
 		
 		for (int i=0; i<InteresElementos.length-1; i++) {
 			
-			aux=validarElemento(InteresElementos[i]);
-			
-			if (!aux) {
-				
-				InteresElementos = cadena.split(" ,");
-				
-				for(int j=0;j<InteresElementos.length-1; j++) {
-					
-					aux=validarElemento(InteresElementos[j]);
-					
-					if (aux) {
-						array.add(InteresElementos[j]);
-					}
-				}
-			}
+			array.add(InteresElementos[i]);
 		}
 		
 		return array;
@@ -621,19 +598,7 @@ public class GestorContactos {
 		return aux;
 	}
 	
-	/**
-	 * Método que muestra los datos de todos los contactos de la lista de contactos del gestor.
-	 */
-	
-	public void mostrarContactos() {
-		if(contactos.isEmpty()) {
-			System.out.println("La lista esta vacia.\n");
-		}else {
-			verContacto(contactos);
-		}
-		
-	}
-	
+
 	/**
 	 * Este método recibe un email como argumento y devuelve 1 en caso de que haya algún
 	 * contacto con ese mismo email,0 si no existe ningún contacto con ese email y -1 
@@ -762,7 +727,7 @@ public class GestorContactos {
 	
 	public String getRuta() {
 		
-		File file = new File("C:\\Users\\crist\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero1.txt");
+		File file = new File("C:\\Users\\crist\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
 		String propertiesPath = file.getAbsolutePath();
 		
 		Properties appProperties = new Properties();
@@ -798,14 +763,6 @@ public class GestorContactos {
 		String fechaN = "";
 		ArrayList<String> intereses = new ArrayList<String>();
 		
-		for(int i=0;i<c.size();i++) {
-			nombre = c.get(i).getNombre();
-			apellidos = c.get(i).getApellidos();
-			email = c.get(i).getEmail();
-			fechaN = c.get(i).getFechaN();
-			intereses = c.get(i).getIntereses();
-		}
-		
 		
 		String rutaFichero = getRuta()+"\\fichero1.txt";
 		
@@ -813,14 +770,28 @@ public class GestorContactos {
 		
 		try {
 			FileWriter fichero = new FileWriter(rutaFichero,true);
-			fichero.write(nombre+"\n");
-			fichero.write(apellidos+"\n");
-			fichero.write(email+"\n");
-			fichero.write(fechaN+"\n");
-			for(int i=0;i<intereses.size();i++) {
-				fichero.write(intereses.get(i)+"\n");
+			for(int i=0;i<c.size();i++) {
+				email = c.get(i).getEmail();
+				nombre = c.get(i).getNombre();
+				apellidos = c.get(i).getApellidos();				
+				fechaN = c.get(i).getFechaN();
+				intereses = c.get(i).getIntereses();
+				
+				fichero.write(email+"\n");
+				fichero.write(nombre+"\n");
+				fichero.write(apellidos+"\n");
+				fichero.write(fechaN+"\n");
+				for(int j=0;j<intereses.size();j++) {
+					fichero.write(intereses.get(j)+"\n");
+				}
+				
 			}
 			fichero.close();
+			
+			
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -856,18 +827,19 @@ public class GestorContactos {
 			//Vamos a ver cuantos registros hay en el fichero.
 			while((linea=buffer.readLine())!=null) {
 				
+				
+				email = linea;				
+				linea = buffer.readLine();
+				
 				nombre = linea;
-				
 				linea = buffer.readLine();
-				apellidos = linea;
 				
+				apellidos = linea;				
 				linea = buffer.readLine();
-				email = linea;
 				
+				fechaN = linea;				
 				linea = buffer.readLine();
-				fechaN = linea;
 				
-				linea = buffer.readLine();
 				intereses = devolver_array(linea);
 				
 				ArrayList<String> aux = new ArrayList<String>(intereses);
@@ -881,12 +853,7 @@ public class GestorContactos {
 			
 			}	
 			
-			if(contactos.isEmpty()) {
-				System.out.println("La lista esta vacia.\n");
-			
-			}
-			
-			
+		
 			buffer.close();
 			entrada.close();
 			
@@ -920,41 +887,31 @@ public class GestorContactos {
 	 * @param lista Lista de contactos de los cuales se quieren ver los datos
 	 */
 	
-	public void verContacto(ArrayList<Contacto> lista) {
-		for(int i=0;i<lista.size();i++) {
-			System.out.println("Nombre : "+lista.get(i).getNombre());
-			System.out.println("Apellidos : "+lista.get(i).getApellidos());
-			System.out.println("Email : "+lista.get(i).getEmail());
-			System.out.println("Fecha de nacimiento : "+lista.get(i).getFechaN());
-			verIntereses(lista.get(i).getIntereses());
-		}
-	}
-	
-	/**
-	 * Este método recibe como argumento una lista de intereses y los muestra por pantalla
-	 * @param intereses Lista de intereses que se van a mostrar
-	 */
-	
-	public void verIntereses(ArrayList<String> intereses) {
-		for(int i=0;i<intereses.size();i++) {
-			System.out.print("Intereses : ");
-			System.out.println(intereses.get(i));
+	public void mostrarContactos() {
+		for(int i=0;i<contactos.size();i++) {
+			String nombre=contactos.get(i).getNombre();
+			String apellidos=contactos.get(i).getApellidos();
+			String Email=contactos.get(i).getEmail();
+			String Fecha_nacimiento=contactos.get(i).getFechaN();
+			
+			
+			System.out.println("Nombre              : "+nombre);
+			System.out.println("Apellidos           : "+apellidos);
+			System.out.println("Email               : "+Email);
+			System.out.println("Fecha de nacimiento : "+Fecha_nacimiento);
+			System.out.println("Intereses           : ");
+			for(int a=0;a<contactos.get(i).getIntereses().size();a++)
+			{
+				System.out.println(contactos.get(i).getIntereses().get(a));
+			}
+			
 			System.out.println("----------------------------");
+		
+			
 		}
 	}
 	
-	/**
-	 * Este método recibe un contacto y muestra sus atributos por pantalla
-	 * @param c Contacto cuyos atributos van a ser mostrados
-	 */
-	
-	public void mostrarContacto (Contacto c) {
-		System.out.println("Nombre : "+c.getNombre());
-		System.out.println("Apellidos : "+c.getApellidos());
-		System.out.println("Email : "+c.getEmail());
-		System.out.println("Fecha de Nacimiento : "+c.getFechaN());
-		verIntereses(c.getIntereses());
-	}
+
 	
 	public ArrayList<String>Separar(String cadena) {
 		ArrayList<String> aux= new ArrayList<String>();
