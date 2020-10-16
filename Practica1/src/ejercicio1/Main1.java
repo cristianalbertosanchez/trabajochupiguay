@@ -45,7 +45,7 @@ public class Main1 {
 				
 				
 				
-				CreacionContacto();
+				g.CreacionContacto();
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();

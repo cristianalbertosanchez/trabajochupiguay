@@ -34,10 +34,14 @@ public class main{
 			
 			case 1:
 				t.IniciarSesion();
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			
 			case 2:
 				t.Registrarse();
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
 				break;
 			
 			case 0:
