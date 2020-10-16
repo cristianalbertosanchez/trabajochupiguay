@@ -368,6 +368,7 @@ public class GestorTablon {
 			
 			Anuncio a= new Anuncio(id,titulo,usuario_prop,aux,cuerpo,tipo);
 			
+			c.setMi
 			
 		}
 	
