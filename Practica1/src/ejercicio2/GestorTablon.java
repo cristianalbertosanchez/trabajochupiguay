@@ -131,81 +131,107 @@ public class GestorTablon {
 			Scanner teclado = new Scanner(System.in);
 			boolean salir = false;
 			int opcion3;
+			if(!c.getMisAnuncios().isEmpty()) {
+				
 			
-			while(!salir) {
-				System.out.println("ZONA DE CREACIÓN ANUNCIOS");
-				System.out.println("¡Hola "+ c.getNombre()+"!");
-				
-				
-				System.out.println("");
-				System.out.println("1. Editar Anuncio/ Guardar\n");
-				System.out.println("2. Publicar anuncio\n");
-				System.out.println("3. Archivar anuncio\n");
-				System.out.println("4. Buscar anuncio por fecha\n");
-				System.out.println("5. Buscar anuncio por interes\n");
-				System.out.println("6. Buscar anuncio por usuario propietario\n");
-				System.out.println("7. Buscar anuncio por usuario destinatario\n");
+				while(!salir) {
+					System.out.println("ZONA DE CREACIÓN ANUNCIOS");
+					System.out.println("¡Hola "+ c.getNombre()+"!");
+					
+					
+					System.out.println("");
+					System.out.println("1. Editar Anuncio / Guardar\n");
+					System.out.println("2. Publicar anuncio\n");
+					System.out.println("3. Archivar anuncio\n");
+					System.out.println("4. Buscar anuncio por fecha\n");
+					System.out.println("5. Buscar anuncio por interes\n");
+					System.out.println("6. Buscar anuncio por usuario propietario\n");
+					System.out.println("7. Buscar anuncio por usuario destinatario\n");
 
 
-				
-				System.out.println("0. SALIR.\n");
+					
+					System.out.println("0. SALIR.\n");
 
+					
+					
+					System.out.println("Introducir opcion : \n");
+					opcion3 = sn.nextInt();
+					
+					switch(opcion3) {
+					
+					case 1:
+						GestorContactos.clearConsole();
+					
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					
+					case 2:
+						GestorContactos.clearConsole();
+						
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 3:
+						GestorContactos.clearConsole();
+						
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 4:
+						GestorContactos.clearConsole();
+						
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 5:
+						GestorContactos.clearConsole();
+						
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 6:
+						GestorContactos.clearConsole();
+					
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 7:
+						GestorContactos.clearConsole();
+						
+						GestorContactos.press_any_key_to_continue();
+						GestorContactos.clearConsole();
+						break;
+					case 0:
+							salir=true;
+						break;
+						
+					}
+				}		
 				
 				
+				
+				
+			}
+			else {
+				int op;
+				System.out.println("¡Todavía no has creado ninún anuncio!.\n");
+				System.out.println("1. Crear anuncio\n");
+				System.out.println("0. Volver\n");
 				System.out.println("Introducir opcion : \n");
-				opcion3 = sn.nextInt();
+				op = sn.nextInt();
 				
-				switch(opcion3) {
-				
-				case 1:
-					GestorContactos.clearConsole();
-				
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				
-				case 2:
-					GestorContactos.clearConsole();
-					
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 3:
-					GestorContactos.clearConsole();
-					
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 4:
-					GestorContactos.clearConsole();
-					
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 5:
-					GestorContactos.clearConsole();
-					
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 6:
-					GestorContactos.clearConsole();
-				
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 7:
-					GestorContactos.clearConsole();
-					
-					GestorContactos.press_any_key_to_continue();
-					GestorContactos.clearConsole();
-					break;
-				case 0:
-						salir=true;
-					break;
-					
+				if(op==1) {
+					CrearAnuncio(c);
 				}
-			}		
+				else {
+					GestorContactos.press_any_key_to_continue();
+					GestorContactos.clearConsole();
+				}
+				
+			}
+			
+			
 			
 			
 		}
@@ -218,11 +244,115 @@ public class GestorTablon {
 			boolean salir = false;
 			
 			
-			
-			
 		}
 		
 		
+		public void CrearAnuncio(Contacto c) {
+			Scanner sn = new Scanner(System.in);
+			Scanner teclado = new Scanner(System.in);
+			int op;
+			String tipo;
+			System.out.println("Escoge el tipo de anuncio que prefieras.\n");
+			System.out.println("1. Anuncio general         :  Este anuncio podrá ser visto por todos los usuarios registrados\n");
+			System.out.println("2. Anuncio temático        :  Será mostrado a aquellos usuarios que les interese un determinado tema\n");
+			System.out.println("3. Anuncio individualizado :  Será mostrado a 1 o más usuarios específicos\n");
+			System.out.println("4. Anuncio Flash           :  Se muestra en el tablón restringido entre una fecha/hora inicial y una fecha/hora final\n");
+			System.out.println("0. Volver\n");
+			System.out.println("Introducir opcion : \n");
+			op = sn.nextInt();
+			switch(op) {
+			
+			case 1:
+				GestorContactos.clearConsole();
+				
+				tipo="General";
+				SolicitarInfoAnuncio(tipo,c);
+								
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+				break;
+			
+			case 2:
+				GestorContactos.clearConsole();
+				
+				tipo="Tematico";				
+				SolicitarInfoAnuncio(tipo,c);
+				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+				break;
+			case 3:
+				GestorContactos.clearConsole();
+				
+				tipo="Individualizado";
+				SolicitarInfoAnuncio(tipo,c);
+				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+				break;
+			case 4:
+				GestorContactos.clearConsole();
+				
+				tipo="Flash";
+				SolicitarInfoAnuncio(tipo,c);
+				
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+				break;
+			default: 
+				GestorContactos.press_any_key_to_continue();
+				GestorContactos.clearConsole();
+			break;
+			
+			}
+			
+		}
+		
+		public void SolicitarInfoAnuncio(String tipo,Contacto c){
+			Scanner sn = new Scanner(System.in);
+			Scanner teclado = new Scanner(System.in);
+			int id;
+			id= (int) (Math.random()*10000+1);
+			
+			System.out.println("Título: \n");
+			String titulo= teclado.nextLine();
+			
+			String usuario_prop=c.getNombre()+" "+c.getApellidos();
+			
+			String usuario_dest;
+			switch(tipo) {
+			
+			case "General":
+				
+				usuario_dest="todos";
+				break;
+				
+			case "Tematico":
+				
+				System.out.println("¿A que intereses del usuario te diriges? : \n");
+				usuario_dest= teclado.nextLine();
+				break;
+				
+			case "Individualizado":
+				
+				break;
+				
+			case "Flash":
+				
+				break;
+				
+				
+			default:
+				break;
+			}
+			
+			System.out.println("Cuerpo: \n");
+			String cuerpo= teclado.nextLine();
+			
+			Anuncio a= new Anuncio(id,titulo,usuario_prop,usuario_dest,cuerpo,tipo);
+			
+			
+		}
 	
 	
 	
