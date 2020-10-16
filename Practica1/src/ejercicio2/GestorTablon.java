@@ -312,6 +312,9 @@ public class GestorTablon {
 			Scanner sn = new Scanner(System.in);
 			Scanner teclado = new Scanner(System.in);
 			int id;
+			ArrayList<String> aux= new ArrayList<String>();
+			
+			
 			id= (int) (Math.random()*10000+1);
 			
 			System.out.println("Título: \n");
@@ -325,20 +328,34 @@ public class GestorTablon {
 			case "General":
 				
 				usuario_dest="todos";
+				aux.add(usuario_dest);
 				break;
 				
 			case "Tematico":
 				
 				System.out.println("¿A que intereses del usuario te diriges? : \n");
+				System.out.println("Escriba alguno de los siguientes separado por comas\n");
+				System.out.println("Pintura    Música    Deporte  \n");
+				System.out.println("Pesca      Cine      Fotografía  \n");
+				System.out.println("Viajes     Tecnología \n");
+				
+				
 				usuario_dest= teclado.nextLine();
+				aux=Separar(usuario_dest);
+				
 				break;
 				
 			case "Individualizado":
+				System.out.println("¿A que usuario/s te diriges? (Escribe sus nombres separados por comas): \n");
+				usuario_dest= teclado.nextLine();
+				
+				aux=Separar(usuario_dest);
 				
 				break;
 				
 			case "Flash":
-				
+				usuario_dest="todos";
+				aux.add(usuario_dest);
 				break;
 				
 				
@@ -349,12 +366,22 @@ public class GestorTablon {
 			System.out.println("Cuerpo: \n");
 			String cuerpo= teclado.nextLine();
 			
-			Anuncio a= new Anuncio(id,titulo,usuario_prop,usuario_dest,cuerpo,tipo);
+			Anuncio a= new Anuncio(id,titulo,usuario_prop,aux,cuerpo,tipo);
 			
 			
 		}
 	
 	
+		
+		
+		public ArrayList<String>Separar(String cadena) {
+			ArrayList<String> aux= new ArrayList<String>();
+			
+			
+			
+			
+			return aux;
+		}
 	
 	}
 
