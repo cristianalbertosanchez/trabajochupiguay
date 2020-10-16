@@ -11,15 +11,32 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
 
+/**
+ * Crea una clase para representar un gestor de contactos.
+ * Este gestor de contactos realiza operaciones sobre objetos contactos como creación,eliminación,
+ * modificación y visualización de contactos. Además permite la lectura y escritura de los contactos
+ * en un fichero de texto.
+ * @author Pablo Domínguez Alcaide
+ * @autor Alberto Sánchez Salido
+ *
+ */
 
 public class GestorContactos {
 
 	private static GestorContactos gestor;
 	
-	public static ArrayList<Contacto> contactos;
+	private ArrayList<Contacto> contactos;
 	
-	public GestorContactos() {contactos = new ArrayList<Contacto>();}
+	private GestorContactos() {contactos = new ArrayList<Contacto>();}
 		
+	/**
+	 * Este método servirá para que solo se pueda crear una instancia del objeto GestorContacto.
+	 * <p>
+	 * Esta función forma parte de un patrón de diseño llamado patrón singleton, el cual 
+	 * permite la creación de una insancia una sola vez.
+	 * @return La operación retorna un objeto de tipo GestorContactos
+	 */
+	
 	public static GestorContactos getInstance() {
 		
 		if(gestor == null) {
@@ -31,7 +48,17 @@ public class GestorContactos {
 	}
 	
 
-	
+	/**
+	 * Este método crea un objeto contacto, cuyos valores vienen dados por los argumentos.
+	 * <p>
+	 * Este metodo recibe el valor que tendrán los atributos de la clase Contacto y crea un objeto 
+	 * Contacto con los valores que recibe para luego añadirlo a la lista de contactos del gestor.
+	 * @param nombre es el nombre del contacto
+	 * @param apellidos son los apellidos del contacto
+	 * @param email	es el correo electrónico del contacto, el cual debe ser único
+	 * @param fechaN es la fecha de nacimiento del contacto
+	 * @param intereses es una serie de intereses que tendrá el contacto
+	 */
 	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
@@ -39,66 +66,37 @@ public class GestorContactos {
 		contactos.add(c);
 	}
 	
+	/**
+	 * Esta funcion crea un objeto contacto a partir de otro contacto recibido.
+	 * <p>
+	 * La función recibira un objeto Contacto del cual copiará sus atributos y lo
+	 * añadirá a la lista de contactos del gestor.
+	 * @param c Objeto de tipo contacto del cual se copiarán los atributos.
+	 */
+	
 	public void crearContacto(Contacto c) {
 		Contacto cont = new Contacto(c);
 		contactos.add(cont);
 	}
 	
+	/**
+	 * Este método devuelve la lista de contactos del gestor contactos
+	 * @return La lista de contactos del gestor
+	 */
 	
-	public boolean Obtencion_Intereses(String interesestotal) {
-		
-		String[] InteresElementos = interesestotal.split(",");
-		boolean aux;
-		
-		
-		for (int i=0; i<InteresElementos.length-1; i++) {
-			aux=validarElemento(InteresElementos[i]);
-			if (!aux) {
-				InteresElementos = interesestotal.split(" ,");
-				for(int j=0;j<InteresElementos.length-1; j++) {
-					aux=validarElemento(InteresElementos[j]);
-					if(!aux) {
-						return false;
-					}
-				}
-			}
-		}
-	return true;
+	public ArrayList<Contacto> getContactos (){
+		return this.contactos;
 	}
 	
-	public ArrayList<String> devolver_array (String cadena){
-		
-		ArrayList<String> array = new ArrayList<String>();
-		array.add(cadena);
-		boolean aux;
-		
-				
-		String[] InteresElementos = cadena.split(",");
-		
-		
-		
-		for (int i=0; i<InteresElementos.length-1; i++) {
-			
-			aux=validarElemento(InteresElementos[i]);
-			
-			if (!aux) {
-				
-				InteresElementos = cadena.split(" ,");
-				
-				for(int j=0;j<InteresElementos.length-1; j++) {
-					
-					aux=validarElemento(InteresElementos[j]);
-					
-					if (aux) {
-						array.add(InteresElementos[j]);
-					}
-				}
-			}
-		}
-		
-		return array;
-	}
-	
+	/**
+	 * Este método comprueba si el interés introducido por el usuario es válido.
+	 * <p>
+	 * La función crea un ArrayList con los intereses que están permitidos y compara la
+	 * variable elemento para ver si se encuentra en el ArrayList, si es un elemento válido
+	 * (Esta dentro del ArrayList) devuelve true, en caso contrario devuelve false;
+	 * @param elemento Interés el cual se va a comprobar si es válido
+	 * @return Devuelve true en caso de que el elemento sea válido, falso en caso contrario
+	 */
 	
 	public boolean validarElemento(String elemento) {
 		ArrayList<String> InteresesValidos= new ArrayList<String>() ;
@@ -147,7 +145,87 @@ public class GestorContactos {
 	
 	
 	
+	/**
+	 * Este método separa los elementos de una cadena String separada por "," y los
+	 * introduce en un vector String y valida que todos los elementos escritos en el 
+	 * String sean intereses válidos
+	 * @param interesestotal Cadena de texto con todos los intereses de un contacto
+	 * @return true si los intereses son válidos, false en caso contrario.
+	 */
 	
+	public boolean Obtencion_Intereses(String interesestotal) {
+		
+		String[] InteresElementos = interesestotal.split(",");
+		boolean aux;
+		
+		
+		for (int i=0; i<InteresElementos.length-1; i++) {
+			aux=validarElemento(InteresElementos[i]);
+			if (!aux) {
+				InteresElementos = interesestotal.split(" ,");
+				for(int j=0;j<InteresElementos.length-1; j++) {
+					aux=validarElemento(InteresElementos[j]);
+					if(!aux) {
+						return false;
+					}
+				}
+			}
+		}
+	return true;
+	}
+	
+	/**
+	 * Este método recibe una cadena con los intereses de un contacto y los añade a una lista 
+	 * de tipo String y luego devuelve esta lista.
+	 * <p>
+	 * Primero separa la cadena en elementos (ya que van separados por comas) y comprueba si
+	 * son válidos, si lo son los añade a la lista y si no son válidos muestra un error.
+	 * @param cadena Cadena de texto con los intereses de un contacto separados por comas.
+	 * @return Una lista de String con los intereses del contacto.
+	 */
+	
+	public ArrayList<String> devolver_array (String cadena){
+		
+		ArrayList<String> array = new ArrayList<String>();
+		boolean aux;
+		
+				
+		String[] InteresElementos = cadena.split(",");
+		
+		
+		
+		for (int i=0; i<InteresElementos.length-1; i++) {
+			
+			aux=validarElemento(InteresElementos[i]);
+			
+			if (!aux) {
+				
+				InteresElementos = cadena.split(" ,");
+				
+				for(int j=0;j<InteresElementos.length-1; j++) {
+					
+					aux=validarElemento(InteresElementos[j]);
+					
+					if (aux) {
+						array.add(InteresElementos[j]);
+					}
+				}
+			}
+		}
+		
+		return array;
+	}
+	
+	
+	
+	/**
+	 * Este método elimina un contacto de la lista de contactos del gestor.
+	 * <p>
+	 * Primero se pregunta por el email del contacto a eliminar y lo busca en 
+	 * la lista de contactos, si no está se mostrará un error por pantalla, en 
+	 * caso contrario se mostrarán los datos del contacto que se va a eliminar
+	 * y se pide una confirmación, si se recibe confirmación el contacto se elimina.
+	 */
 	
 	
 	public void eliminarContacto() 
@@ -207,6 +285,16 @@ public class GestorContactos {
 		
 		
 	}
+	
+	/**
+	 * Este método actualiza la información del contacto especificado.
+	 * <p>
+	 * Esta función recibe de argumento el email del contacto del cual se quieren
+	 * modificar los datos. Si lo encuentra en la lista de contactos del gestor le 
+	 * pregunta al usuario que dato desea modificar dependiendo de la opción introducida
+	 * se le pide al usuario que introduzca el nuevo dato para el contacto y lo sobreescribe.
+	 * @param email sirve como identificador del contacto que se va a actualizar
+	 */
 	
 	public void actualizarContacto(String email) {
 		
@@ -315,7 +403,18 @@ public class GestorContactos {
 		}
 	}
 		
-	
+	/**
+	 * Método que busca por nombre y apellidos,por fecha de nacimiento, por email o por intereses y 
+	 * lo muestra por pantalla.
+	 * <p>
+	 * Primero se le pregunta al usuario por que parámetro desea realizar la búsqueda, una vez
+	 * indicado se le vuelve a preguntar al usuario que introduzca el parámetro del contacto que se 
+	 * quiere visualizar, lo busca en la lista de contactos del gestor y si está muestra sus datos,
+	 * si no muestra un error. Este método está implementado de tal forma que si se invoca desde el 
+	 * main solo, lo único que hace es mostrar el contacto pero se puede igualar a una variable bool
+	 * para comprobar si ese contacto está en la lista de contacto.
+	 * @return true si el contacto está en la lista de contactos del gestor, false en caso contrario.
+	 */
 	
 	public boolean buscarContacto(){
 		boolean aux;
@@ -464,6 +563,10 @@ public class GestorContactos {
 		return aux;
 	}
 	
+	/**
+	 * Método que muestra los datos de todos los contactos de la lista de contactos del gestor.
+	 */
+	
 	public void mostrarContactos() {
 		if(contactos.isEmpty()) {
 			System.out.println("La lista esta vacia.\n");
@@ -473,7 +576,14 @@ public class GestorContactos {
 		
 	}
 	
-	
+	/**
+	 * Este método recibe un email como argumento y devuelve 1 en caso de que haya algún
+	 * contacto con ese mismo email,0 si no existe ningún contacto con ese email y -1 
+	 * si el email no tiene un formato válido
+	 * @param email Cadena que se va a buscar como email de un contacto.
+	 * @return 1 si el Contacto con email especificado existe, 0 si no existe contacto con ese email y 
+	 * -1 si el formato del email especificado no es válido.
+	 */
 	public int existeContacto(String email) {
 		int existe = 0;
 		
@@ -484,6 +594,8 @@ public class GestorContactos {
 			for(int i=0;i<contactos.size();i++) {
 				if(contactos.get(i).getEmail().contentEquals(email)) {
 					existe = 1;
+				}else {
+					System.out.println("No se ha encontrado contacto con email especificado.\n");
 				}
 			}
 			if(existe==1) {
@@ -499,7 +611,14 @@ public class GestorContactos {
 		return existe;
 	}
 	
-	
+	/**
+	 * Este método comprueba si la cadena introducida cumple el formato inpuesto.
+	 * <p>
+	 * El método divide la cadena introducida en 3 subcadenas (dia,mes y año) y comprueba 
+	 * que cada una de ellas cumple el formato deseado.
+	 * @param FechaN Cadena de texto que se quiere comprobar
+	 * @return true si la fecha cumple con el formato deseado, false en caso contrario
+	 */
 	
 	public boolean validarFecha(String FechaN) {
 		boolean valido=true;
@@ -534,7 +653,9 @@ public class GestorContactos {
 	}
 		
 
-	
+	/**
+	 * Este método se encarga de esperar a que el usuario pulse una tecla para seguir con el programa.
+	 */
 	
 	static public void press_any_key_to_continue() {
 		String seguir;
@@ -550,6 +671,9 @@ public class GestorContactos {
 		
 	}
 	
+	/**
+	 * Este método se encarga de limpiar la consola.
+	 */
 	
 	public final static void clearConsole()
 	{
@@ -573,6 +697,10 @@ public class GestorContactos {
 	}
 	
 	
+	/**
+	 * Este método busca el fichero properties y devuelve su ruta.
+	 * @return una cadena String que es la ruta del fichero properties
+	 */
 	
 	public String getRuta() {
 		
@@ -597,6 +725,12 @@ public class GestorContactos {
 		
 	}
 	
+	/**
+	 * Este método se encarga de escribir los contactos en un fichero.
+	 * <p>
+	 * El método recibe la lista de contactos del gestor y los escribe en un fichero de texto
+	 * @param c Lista de contactos del gestor de contactos
+	 */
 	
 	public void escribirEnFichero(ArrayList<Contacto> c) {
 		
@@ -635,6 +769,16 @@ public class GestorContactos {
 		
 	}
 	
+	/**
+	 * Este método recibe la ruta del fichero properties y devuelve una lista con los contactos
+	 * del fichero
+	 * <p>
+	 * El método busca el fichero.properties que está en la ruta que recibe como argumento, del
+	 * cual saca la ruta del fichero con los contactos y guarda estos contactos en la lista de 
+	 * contactos del gestor de contactos.
+	 * @param ruta Parámetro que indica la ruta del fichero.properties
+	 * @return una lista con los contactos del fichero de contactos
+	 */
 	
 	public ArrayList<Contacto> leerDeFichero(String ruta) {
 		
@@ -694,6 +838,11 @@ public class GestorContactos {
 		return contactos;
 	}
 	
+	/**
+	 * Esta función recibe el email del contacto que se quiere buscar y lo devuelve.
+	 * @param email
+	 * @return el contacto cuyo atributo de email se corresponde con la cadena enviada.
+	 */
 	
 	public Contacto getContacto(String email) {
 		Contacto c = null;
@@ -707,9 +856,11 @@ public class GestorContactos {
 		return c;
 	}
 	
-	public ArrayList<Contacto> getContactos (){
-		return this.contactos;
-	}
+	/**
+	 * Este método recibe una lista de contactos y muestra los datos de todos los contactos
+	 * de la lista
+	 * @param lista Lista de contactos de los cuales se quieren ver los datos
+	 */
 	
 	public void verContacto(ArrayList<Contacto> lista) {
 		for(int i=0;i<lista.size();i++) {
@@ -721,6 +872,11 @@ public class GestorContactos {
 		}
 	}
 	
+	/**
+	 * Este método recibe como argumento una lista de intereses y los muestra por pantalla
+	 * @param intereses Lista de intereses que se van a mostrar
+	 */
+	
 	public void verIntereses(ArrayList<String> intereses) {
 		for(int i=0;i<intereses.size();i++) {
 			System.out.print("Intereses : ");
@@ -728,6 +884,11 @@ public class GestorContactos {
 			System.out.println("----------------------------");
 		}
 	}
+	
+	/**
+	 * Este método recibe un contacto y muestra sus atributos por pantalla
+	 * @param c Contacto cuyos atributos van a ser mostrados
+	 */
 	
 	public void mostrarContacto (Contacto c) {
 		System.out.println("Nombre : "+c.getNombre());
@@ -737,47 +898,4 @@ public class GestorContactos {
 		verIntereses(c.getIntereses());
 	}
 	
-<<<<<<< HEAD
-	
-	public ArrayList<String>Separar(String cadena) {
-		ArrayList<String> aux= new ArrayList<String>();
-		
-		
-		String[] separado = cadena.split(",");
-		
-		
-		
-		for (int i=0; i<separado.length-1; i++) {
-			aux.add(separado[i]);
-		}
-		
-		return aux;
-	}
-	
-	public ArrayList<String> UsuariosValidos(String intereses) {
-		ArrayList<String> aux= new ArrayList<String>();
-		aux=Separar(intereses);
-		ArrayList<String> usuarios=new ArrayList<String>();
-		
-		for(int i=0;i<contactos.size();i++) {
-			for(int j=0;j<aux.size();j++) {
-				if(contactos.get(i).getIntereses().get(i)==aux.get(j)) {
-					String nombre,apellidos,nombre_apellidos;
-					nombre=contactos.get(i).getNombre();
-					apellidos=contactos.get(i).getApellidos();
-					nombre_apellidos=nombre+" "+apellidos;
-					usuarios.add(nombre_apellidos);
-					
-				}
-			}
-		}
-		
-		return aux;
-	}
-	
-
-	
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/cristianalbertosanchez/trabajochupiguay.git
