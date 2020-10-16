@@ -956,4 +956,61 @@ public class GestorContactos {
 		verIntereses(c.getIntereses());
 	}
 	
+	public ArrayList<String>Separar(String cadena) {
+		ArrayList<String> aux= new ArrayList<String>();
+		
+		
+		String[] separado = cadena.split(",");
+		
+		
+		
+		for (int i=0; i<separado.length-1; i++) {
+			aux.add(separado[i]);
+		}
+		
+		return aux;
+	}
+	
+	//Funcion que recibe una cadena que se presupone con valores String separados entre
+	//comas y los separa añadiendo cada valor a una posicion de un ArrayList<String> que devulve posteriormente
+	
+	public ArrayList<String> UsuariosValidos(String cadena){
+		
+		ArrayList<String> intereses_buscados=new ArrayList<String>();
+		
+		ArrayList<String> intereses=new ArrayList<String>();
+		
+		ArrayList<String> aux=new ArrayList<String>();
+		
+		intereses_buscados=Separar(cadena);
+		
+		Contacto c;
+		
+		for(int j=0;j<intereses_buscados.size();j++) {
+				for(int i=0;i<contactos.size();i++) {
+					intereses=contactos.get(j).getIntereses();
+					c=contactos.get(j);
+					for(int h=0;h<intereses.size();h++) {
+						if(intereses.get(h).contentEquals(intereses_buscados.get(j))) {
+							String nombre=c.getNombre();
+							String apellidos=c.getApellidos();
+							String nombre_apellidos=nombre+" "+apellidos;
+							aux.add(nombre_apellidos);
+						}
+						
+					}
+				}
+					
+					
+			}
+			
+		
+		
+		
+		return aux;
+	}
+	
+	
+	
+	
 }
