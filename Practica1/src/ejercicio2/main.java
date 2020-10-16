@@ -29,6 +29,9 @@ public class main{
 				
 			//-------------------------------------------------------------------------------------	
 		
+			g.mostrarContactos();
+				
+				
 		while(!salir) {
 			
 			
@@ -59,6 +62,8 @@ public class main{
 				break;
 			
 			case 0:
+				System.out.println("Saliendo del programa...\n");
+				GestorContactos.clearConsole();
 					salir=true;
 				break;
 				

@@ -2,14 +2,4 @@ alberto
 sanchez
 i82sasac@uco.es
 07/07/2000
-musica,pesca
-alberto
-sanchez
-i83sasac@uco.es
-08/08/2000
-musica
-alberto
-sanchez
-hola@uco.es
-07/07/2000
-cine
+pintura

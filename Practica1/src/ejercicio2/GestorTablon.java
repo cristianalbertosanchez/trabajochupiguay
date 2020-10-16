@@ -12,9 +12,9 @@ public class GestorTablon {
 
 	private static GestorTablon gestor;
 	
-	private ArrayList<Anuncio> contactos;
+	private ArrayList<Contacto> contactos;
 	
-	private GestorTablon() {contactos = new ArrayList<Anuncio>();}
+	private GestorTablon() {contactos = new ArrayList<Contacto>();}
 	public GestorContactos g= new GestorContactos();
 	
 		
@@ -36,12 +36,13 @@ public class GestorTablon {
 			String email = teclado.nextLine();
 			
 			
-			Contacto c=null;
-			
+	
+		
 			if(g.existeContacto(email)==1) {
 				
-				c = g.getContacto(email);
-				MenuTablon(c);
+				
+				
+				MenuTablon(g.getContacto(email));
 				
 				
 				return true;
@@ -131,7 +132,7 @@ public class GestorTablon {
 			Scanner teclado = new Scanner(System.in);
 			boolean salir = false;
 			int opcion3;
-			if(!c.getMisAnuncios().isEmpty()) {
+			if(c.getMisAnuncios()!=null) {
 				
 			
 				while(!salir) {
@@ -161,7 +162,9 @@ public class GestorTablon {
 					
 					case 1:
 						GestorContactos.clearConsole();
-					
+						
+						EditarAnuncio(c);
+						
 						GestorContactos.press_any_key_to_continue();
 						GestorContactos.clearConsole();
 						break;
@@ -312,23 +315,23 @@ public class GestorTablon {
 			Scanner sn = new Scanner(System.in);
 			Scanner teclado = new Scanner(System.in);
 			int id;
-			ArrayList<String> aux= new ArrayList<String>();
 			
 			
-			id= (int) (Math.random()*10000+1);
 			
-			System.out.println("Título: \n");
-			String titulo= teclado.nextLine();
+			id= (int) (Math.random()*10000+1); //ASIGNAMOS UN ID MEDIANTE UN NÚMERO ALEATORIO
 			
-			String usuario_prop=c.getNombre()+" "+c.getApellidos();
+			System.out.println("Título: \n");  //PEDIMOS el titulo
+			String titulo= teclado.nextLine(); //
 			
-			System.out.println("Fecha inicio del anuncio: \n");
+			String usuario_prop=c.getNombre()+" "+c.getApellidos(); //asignamos el usuario propietario como el usuario creador del anuncio
+			
+			System.out.println("Fecha inicio del anuncio: \n");     //FECHA INICIO
 			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 			String fecha_inicio= teclado.nextLine();
 			
 			
 			
-			while(!g.validarFecha(fecha_inicio)) {
+			while(!g.validarFecha(fecha_inicio)) {					//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
 				System.out.println("\nFecha no válida");
 				System.out.println("Fecha inicio del anuncio: \n");
 				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
@@ -336,26 +339,32 @@ public class GestorTablon {
 			}
 			
 			
-			System.out.println("Fecha de finalización del anuncio: \n");
+			System.out.println("Fecha de finalización del anuncio: \n");  //FECHA FINALIZACIÓN 
 			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 			String fecha_fin= teclado.nextLine();
 			
 			
 			
-			while(!g.validarFecha(fecha_fin)) {
+			while(!g.validarFecha(fecha_fin)) {							//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
 				System.out.println("\nFecha no válida");
 				System.out.println("Fecha fin del anuncio: \n");
 				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 				fecha_fin = teclado.nextLine();
 			}
 			
-			String usuario_dest;
+			String usuario_dest;										//VARIABLES AUXILIARES PARA LOS INTERESES Y LOS USUARIOS DESTINATARIOS
+			String interes;
+			ArrayList<String> usuarios_dest= new ArrayList<String>();
+			
+			
+			
+			
 			switch(tipo) {
 			
 			case "General":
 				
 				usuario_dest="todos";
-				aux.add(usuario_dest);
+				usuarios_dest.add(usuario_dest);
 				break;
 				
 			case "Tematico":
@@ -367,22 +376,24 @@ public class GestorTablon {
 				System.out.println("Viajes     Tecnología \n");
 				
 				
-				usuario_dest= teclado.nextLine();
-				aux=Separar(usuario_dest);
+				interes= teclado.nextLine();
+				
+				usuarios_dest=g.UsuariosValidos(interes);
+				
+				
 				
 				break;
 				
 			case "Individualizado":
-				System.out.println("¿A que usuario/s te diriges? (Escribe sus nombres separados por comas): \n");
-				usuario_dest= teclado.nextLine();
-				
-				aux=Separar(usuario_dest);
+				System.out.println("¿A que usuario/s te diriges? (Escribe sus nombres y apellidos separados por comas): \n");
+				usuario_dest= teclado.nextLine();				
+				usuarios_dest=Separar(usuario_dest);
 				
 				break;
 				
 			case "Flash":
 				usuario_dest="todos";
-				aux.add(usuario_dest);
+				usuarios_dest.add(usuario_dest);
 				break;
 				
 				
@@ -393,7 +404,7 @@ public class GestorTablon {
 			System.out.println("Cuerpo: \n");
 			String cuerpo= teclado.nextLine();
 			
-			Anuncio a= new Anuncio(id,titulo,usuario_prop,aux,cuerpo,tipo);
+			Anuncio a= new Anuncio(id,titulo,fecha_inicio,fecha_fin,usuario_prop,usuarios_dest,cuerpo,tipo);
 			ArrayList<Anuncio> auxiliar= new ArrayList<Anuncio>();
 			auxiliar.add(a);
 			
@@ -419,8 +430,44 @@ public class GestorTablon {
 			
 			return aux;
 		}
+		
 	
-	}
+		
+	public void EditarAnuncio(Contacto c){
+		
+		Scanner sn = new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("A continuación te mostramos el título y los identificadores de tus anuncios: \n");
+		ArrayList<Anuncio> auxiliar=new ArrayList<Anuncio>();
+		
+			auxiliar=c.getMisAnuncios();
+			
+			for(int j=0;j<auxiliar.size();j++) {
+				
+				System.out.println("Título : "+auxiliar.get(j).getTitulo()+"\n");
+				System.out.println("ID : "+auxiliar.get(j).getId()+"\n");
+				System.out.println("------------------------------\n");
+				
+			}
+			
+			System.out.println("Escribe el ID del anuncio que quieras modificar: ");
+			String id = teclado.nextLine();
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+
+}
+		
+		
+		
+	
+	
 
 
 

@@ -844,6 +844,43 @@ public class GestorContactos {
 		verIntereses(c.getIntereses());
 	}
 	
+	
+	public ArrayList<String>Separar(String cadena) {
+		ArrayList<String> aux= new ArrayList<String>();
+		
+		
+		String[] separado = cadena.split(",");
+		
+		
+		
+		for (int i=0; i<separado.length-1; i++) {
+			aux.add(separado[i]);
+		}
+		
+		return aux;
+	}
+	
+	public ArrayList<String> UsuariosValidos(String intereses) {
+		ArrayList<String> aux= new ArrayList<String>();
+		aux=Separar(intereses);
+		ArrayList<String> usuarios=new ArrayList<String>();
+		
+		for(int i=0;i<contactos.size();i++) {
+			for(int j=0;j<aux.size();j++) {
+				if(contactos.get(i).getIntereses().get(i)==aux.get(j)) {
+					String nombre,apellidos,nombre_apellidos;
+					nombre=contactos.get(i).getNombre();
+					apellidos=contactos.get(i).getApellidos();
+					nombre_apellidos=nombre+" "+apellidos;
+					usuarios.add(nombre_apellidos);
+					
+				}
+			}
+		}
+		
+		return aux;
+	}
+	
 
 	
 }
