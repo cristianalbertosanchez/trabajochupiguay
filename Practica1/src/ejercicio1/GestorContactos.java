@@ -10,11 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class GestorContactos {
@@ -35,65 +30,12 @@ public class GestorContactos {
 		
 	}
 	
-	public void CreacionContacto(String email) {
-		
-		Scanner sn = new Scanner(System.in);
-		Scanner teclado = new Scanner(System.in);
-		
-		System.out.println( "Introduce nombre por favor : \n");
-		
-		String nombre = teclado.nextLine();
-		
-		System.out.println( "Introduce apellidos por favor : \n");
-		
-		String apellidos = teclado.nextLine();
-		
-		System.out.println("Introduce la fecha de nacimiento :    ");
-		System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-		String fechaN = teclado.nextLine();
-		
-		while(!validarFecha(fechaN)) {
-			System.out.println("\nFecha no válida");
-			System.out.println("Introduce la fecha de nacimiento :    ");
-			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-			fechaN = teclado.nextLine();
-		}
-		
-		System.out.println("Introduzca sus intereses");
-		System.out.println("Escriba alguno de los siguientes separado por comas\n");
-		System.out.println("Pintura    Música    Deporte  \n");
-		System.out.println("Pesca      Cine      Fotografía  \n");
-		System.out.println("Viajes     Tecnología \n");
-		
-		
-		String intereses = teclado.nextLine();
-		ArrayList<String> aux = new ArrayList<String>();
-		
-		Obtencion_Intereses(intereses);
-		
-		while(!Obtencion_Intereses(intereses)) {
-			System.out.println("\n Intereses no válidos");
-			System.out.println("Vuelva a introducir los intereses :    ");
-			System.out.println("Escriba alguno de los siguientes separado por comas\n");
-			System.out.println("Pintura    Música    Deporte  \n");
-			System.out.println("Pesca      Cine      Fotografía  \n");
-			System.out.println("Viajes     Tecnología \n");
-			intereses = teclado.nextLine();
-			
-		}
-						
-		aux = devolver_array(intereses);
-		
-		System.out.println("Usuario creado.\n");
-		crearContacto(nombre,apellidos,email,fechaN,aux);
-		escribirEnFichero();
-	}
 
 	
 	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
-		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses,null);
+		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses);
 		contactos.add(c);
 	}
 	
@@ -270,20 +212,6 @@ public class GestorContactos {
 		
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
-				System.out.println("Contacto a actualizar:\n");
-				System.out.println("Nombre              : " + contactos.get(i).getNombre());
-				System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
-				System.out.println("Email               : " + contactos.get(i).getEmail());
-				System.out.println("Fecha de nacimiento : " + contactos.get(i).getFechaN());
-				System.out.println("Intereses           : \n");
-				for(int j=0;j<contactos.get(i).getIntereses().size();j++)
-				{
-					System.out.println(contactos.get(i).getIntereses().get(j));
-				}
-				
-				System.out.println("----------------------------");
-				
-				
 				
 				Scanner sn = new Scanner(System.in);
 				Scanner teclado = new Scanner(System.in);
@@ -367,7 +295,7 @@ public class GestorContactos {
 						}
 										
 						aux = devolver_array(intereses);
-						contactos.get(i).setIntereses(aux);
+						contactos.get(i).addInteres(aux);
 						
 					break;
 					
@@ -386,40 +314,7 @@ public class GestorContactos {
 			
 		}
 	}
-	
-	
-	
-	public static int calcularEdad(String fecha) {
-        String datetext = fecha;
-        try {
-            Calendar birth = new GregorianCalendar();
-            Calendar today = new GregorianCalendar();
-            int age = 0;
-            int factor = 0;
-            Date birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(datetext);
-            Date currentDate = new Date(); //current date
-            birth.setTime(birthDate);
-            today.setTime(currentDate);
-            if (today.get(Calendar.MONTH) <= birth.get(Calendar.MONTH)) {
-                if (today.get(Calendar.MONTH) == birth.get(Calendar.MONTH)) {
-                    if (today.get(Calendar.DATE) > birth.get(Calendar.DATE)) {
-                        factor = -1; //Aun no celebra su cumpleaÃ±os
-                    }
-                } else {
-                    factor = -1; //Aun no celebra su cumpleaÃ±os
-                }
-            }
-            age = (today.get(Calendar.YEAR) - birth.get(Calendar.YEAR)) + factor;
-            return age;
-        } catch (ParseException e) {
-            return -1;
-        }
-
-}
-	
-	
-	
-	
+		
 	
 	
 	public boolean buscarContacto(){
@@ -430,7 +325,7 @@ public class GestorContactos {
 		Scanner teclado = new Scanner(System.in);
 		
 		System.out.println("1. Buscar por Nombre y apellidos.\n");
-		System.out.println("2. Buscar por Edad\n");
+		System.out.println("2. Buscar por Fecha de nacimiento\n");
 		System.out.println("3. Buscar por Email.\n");
 		System.out.println("4. Buscar por Intereses.\n");
 		System.out.println("0. Salir\n");
@@ -472,14 +367,11 @@ public class GestorContactos {
 				break;
 				
 				case 2:
-					System.out.println( "Introduce la edad de los contactos a buscar : \n");
-					int edad_a_buscar = sn.nextInt();
-					String edad_usuario;
-					
+					System.out.println( "Introduce la fecha de nacimiento con el siguiente formato DD/MM/AAAA : \n");
+					String fecha = teclado.nextLine();
+					if(validarFecha(fecha)) {
 						for(int i=0;i<contactos.size();i++) {
-							edad_usuario=contactos.get(i).getFechaN();
-							
-							if(edad_a_buscar==calcularEdad(edad_usuario)) {
+							if(contactos.get(i).getFechaN().contentEquals(fecha)) {
 								System.out.println("\n");
 								System.out.println("Nombre              : " + contactos.get(i).getNombre());
 								System.out.println("Apellidos           : " + contactos.get(i).getApellidos());
@@ -495,7 +387,10 @@ public class GestorContactos {
 								aux=true;
 							}
 						}
-			
+					}
+					else {
+						System.out.println("Formato de Fecha no válido\n");
+					}
 					if(!aux) {
 						System.out.println("No se encuentran resultados");
 					}
@@ -591,11 +486,14 @@ public class GestorContactos {
 					existe = 1;
 				}
 			}
+			if(existe==1) {
+				System.out.println("El email ya se encuentra en uso\n");
+			}
 			
 		}
 		else {
 			existe=-1;
-		
+			System.out.println("Formato de email no válido\n");
 		}
 
 		return existe;
@@ -678,7 +576,7 @@ public class GestorContactos {
 	
 	public String getRuta() {
 		
-		File file = new File("C:\\Users\\crist\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
+		File file = new File("C:\\Users\\w10\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
 		String propertiesPath = file.getAbsolutePath();
 		
 		Properties appProperties = new Properties();
@@ -700,74 +598,37 @@ public class GestorContactos {
 	}
 	
 	
-	public void escribirEnFichero() {
+	public void escribirEnFichero(ArrayList<Contacto> c) {
 		
 		String nombre = "";
 		String apellidos = "";
 		String email = "";
 		String fechaN = "";
 		ArrayList<String> intereses = new ArrayList<String>();
-		String rutaFichero = getRuta()+"\\fichero1.txt";
 		
-
-		try {
-			FileWriter fichero = new FileWriter(rutaFichero);
-			
-			for(int i=0;i<contactos.size();i++) {
-				nombre = contactos.get(i).getNombre();
-				apellidos = contactos.get(i).getApellidos();
-				email = contactos.get(i).getEmail();
-				fechaN = contactos.get(i).getFechaN();
-				intereses = contactos.get(i).getIntereses();
-
-				fichero.write(nombre+"\n");
-				fichero.write(apellidos+"\n");
-				fichero.write(email+"\n");
-				fichero.write(fechaN+"\n");
-				for(int j=0;j<intereses.size();j++) {
-					fichero.write(intereses.get(j)+"\n");
-				}
-				
-			}
-			fichero.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int i=0;i<c.size();i++) {
+			nombre = c.get(i).getNombre();
+			apellidos = c.get(i).getApellidos();
+			email = c.get(i).getEmail();
+			fechaN = c.get(i).getFechaN();
+			intereses = c.get(i).getIntereses();
 		}
 		
-	}
-	
-	public void escribirAnuncios() {
 		
-		String nombre = "";
-		String apellidos = "";
-		String email = "";
-		String fechaN = "";
-		ArrayList<String> intereses = new ArrayList<String>();
 		String rutaFichero = getRuta()+"\\fichero1.txt";
 		
-
+		
+		
 		try {
-			FileWriter fichero = new FileWriter(rutaFichero);
-			
-			for(int i=0;i<contactos.size();i++) {
-				nombre = contactos.get(i).getNombre();
-				apellidos = contactos.get(i).getApellidos();
-				email = contactos.get(i).getEmail();
-				fechaN = contactos.get(i).getFechaN();
-				intereses = contactos.get(i).getIntereses();
-
-				fichero.write(nombre+"\n");
-				fichero.write(apellidos+"\n");
-				fichero.write(email+"\n");
-				fichero.write(fechaN+"\n");
-				for(int j=0;j<intereses.size();j++) {
-					fichero.write(intereses.get(j)+"\n");
-				}
-				
+			FileWriter fichero = new FileWriter(rutaFichero,true);
+			fichero.write(nombre+"\n");
+			fichero.write(apellidos+"\n");
+			fichero.write(email+"\n");
+			fichero.write(fechaN+"\n");
+			for(int i=0;i<intereses.size();i++) {
+				fichero.write(intereses.get(i)+"\n");
 			}
 			fichero.close();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -809,7 +670,7 @@ public class GestorContactos {
 				
 				ArrayList<String> aux = new ArrayList<String>(intereses);
 				
-				Contacto c = new Contacto(nombre,apellidos,email,fechaN,aux,null);
+				Contacto c = new Contacto(nombre,apellidos,email,fechaN,aux);
 				contactos.add(c);
 				
 				
@@ -876,6 +737,7 @@ public class GestorContactos {
 		verIntereses(c.getIntereses());
 	}
 	
+<<<<<<< HEAD
 	
 	public ArrayList<String>Separar(String cadena) {
 		ArrayList<String> aux= new ArrayList<String>();
@@ -916,3 +778,6 @@ public class GestorContactos {
 
 	
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/cristianalbertosanchez/trabajochupiguay.git
