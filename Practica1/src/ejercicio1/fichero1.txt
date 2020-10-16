@@ -1,0 +1,15 @@
+Pablo
+Dominguez
+i83@uco.es
+07/07/2000
+música,deportes
+Cristian
+sanchez
+i82sasac@uco.es
+07/03/1999
+pesca,deportes
+alberto
+sanchez
+i84@uco.es
+08/04/2000
+cine,viajes

@@ -576,7 +576,7 @@ public class GestorContactos {
 	
 	public String getRuta() {
 		
-		File file = new File("C:\\Users\\w10\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
+		File file = new File("C:\\Users\\crist\\git\\trabajochupiguay\\Practica1\\src\\ejercicio1\\fichero.properties");
 		String propertiesPath = file.getAbsolutePath();
 		
 		Properties appProperties = new Properties();
