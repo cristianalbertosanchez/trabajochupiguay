@@ -367,8 +367,11 @@ public class GestorTablon {
 			String cuerpo= teclado.nextLine();
 			
 			Anuncio a= new Anuncio(id,titulo,usuario_prop,aux,cuerpo,tipo);
+			ArrayList<Anuncio> auxiliar= new ArrayList<Anuncio>();
+			auxiliar.add(a);
 			
-			c.setMi
+			c.setMisAnuncios(auxiliar);
+			
 			
 		}
 	
@@ -379,7 +382,13 @@ public class GestorTablon {
 			ArrayList<String> aux= new ArrayList<String>();
 			
 			
+			String[] separado = cadena.split(",");
 			
+			
+			
+			for (int i=0; i<separado.length-1; i++) {
+				aux.add(separado[i]);
+			}
 			
 			return aux;
 		}

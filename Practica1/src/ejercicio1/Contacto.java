@@ -37,7 +37,7 @@ public class Contacto {
 	public void setApellidos(String apellidos) {this.apellidos = apellidos;}
 	public void setFechaN(String fechaN) {this.fecha_nacimiento = fechaN;}
 	public void setIntereses(ArrayList<String> intereses) {this.intereses = intereses;}
-	public void setMisAnuncios(ArrayList<Anuncio> mis_anuncios) {this.mis_anuncios = mis_anuncios;}
+	public void setMisAnuncios(ArrayList<Anuncio> mis_anuncios) {mis_anuncios.addAll(this.mis_anuncios);}
 		
 	
 	
