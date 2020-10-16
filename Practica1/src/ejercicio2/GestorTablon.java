@@ -215,7 +215,7 @@ public class GestorTablon {
 			}
 			else {
 				int op;
-				System.out.println("¡Todavía no has creado ninún anuncio!.\n");
+				System.out.println("¡Todavía no has creado ningún anuncio!.\n");
 				System.out.println("1. Crear anuncio\n");
 				System.out.println("0. Volver\n");
 				System.out.println("Introducir opcion : \n");
@@ -322,6 +322,33 @@ public class GestorTablon {
 			
 			String usuario_prop=c.getNombre()+" "+c.getApellidos();
 			
+			System.out.println("Fecha inicio del anuncio: \n");
+			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+			String fecha_inicio= teclado.nextLine();
+			
+			
+			
+			while(!g.validarFecha(fecha_inicio)) {
+				System.out.println("\nFecha no válida");
+				System.out.println("Fecha inicio del anuncio: \n");
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				fecha_inicio = teclado.nextLine();
+			}
+			
+			
+			System.out.println("Fecha de finalización del anuncio: \n");
+			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+			String fecha_fin= teclado.nextLine();
+			
+			
+			
+			while(!g.validarFecha(fecha_fin)) {
+				System.out.println("\nFecha no válida");
+				System.out.println("Fecha fin del anuncio: \n");
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				fecha_fin = teclado.nextLine();
+			}
+			
 			String usuario_dest;
 			switch(tipo) {
 			
@@ -334,7 +361,7 @@ public class GestorTablon {
 			case "Tematico":
 				
 				System.out.println("¿A que intereses del usuario te diriges? : \n");
-				System.out.println("Escriba alguno de los siguientes separado por comas\n");
+				System.out.println("Escriba alguno de los siguientes separado por comas sin espacios\n");
 				System.out.println("Pintura    Música    Deporte  \n");
 				System.out.println("Pesca      Cine      Fotografía  \n");
 				System.out.println("Viajes     Tecnología \n");
