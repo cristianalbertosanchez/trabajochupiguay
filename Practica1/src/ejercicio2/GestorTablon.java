@@ -12,9 +12,7 @@ public class GestorTablon {
 
 	private static GestorTablon gestor;
 	
-	private ArrayList<Contacto> contactos;
-	
-	private GestorTablon() {contactos = new ArrayList<Contacto>();}
+
 	public GestorContactos g= new GestorContactos();
 	
 		
@@ -28,35 +26,25 @@ public class GestorTablon {
 		}
 	
 	
-		public boolean IniciarSesion() {
+		public void IniciarSesion() {
 			Scanner sn = new Scanner(System.in);
 			Scanner teclado = new Scanner(System.in);
 			
 			System.out.println("Correo Electrónico:");
 			String email = teclado.nextLine();
-			
-			
-	
-		
-			if(g.existeContacto(email)==1) {
-				
-				
-				
-				MenuTablon(g.getContacto(email));
-				
-				
-				return true;
-			}
-			else if (g.existeContacto(email)==-1) {
-				System.out.println("Correo introducido no válido\n");
-				
-			}
-			else {
-				System.out.println("Este correo no se encuentra asociado a ninguna cuenta\n");
+			boolean aux=false;
+			for(int i=0; i<GestorContactos.contactos.size();i++) {
+				if(GestorContactos.contactos.get(i).getEmail().contentEquals(email)) {
+					MenuTablon(GestorContactos.contactos.get(i));
+					aux=true;
+				}
+
 			}
 			
-			return false;
-			
+			if(!aux) {
+				System.out.println("Correo no válido, si fuera necesario prueba a registrarte");
+
+			}
 			
 			
 		}	
@@ -325,38 +313,14 @@ public class GestorTablon {
 			
 			String usuario_prop=c.getNombre()+" "+c.getApellidos(); //asignamos el usuario propietario como el usuario creador del anuncio
 			
-			System.out.println("Fecha inicio del anuncio: \n");     //FECHA INICIO
-			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-			String fecha_inicio= teclado.nextLine();
-			
-			
-			
-			while(!g.validarFecha(fecha_inicio)) {					//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
-				System.out.println("\nFecha no válida");
-				System.out.println("Fecha inicio del anuncio: \n");
-				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-				fecha_inicio = teclado.nextLine();
-			}
-			
-			
-			System.out.println("Fecha de finalización del anuncio: \n");  //FECHA FINALIZACIÓN 
-			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-			String fecha_fin= teclado.nextLine();
-			
-			
-			
-			while(!g.validarFecha(fecha_fin)) {							//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
-				System.out.println("\nFecha no válida");
-				System.out.println("Fecha fin del anuncio: \n");
-				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-				fecha_fin = teclado.nextLine();
-			}
+					
 			
 			String usuario_dest;										//VARIABLES AUXILIARES PARA LOS INTERESES Y LOS USUARIOS DESTINATARIOS
 			String interes;
 			ArrayList<String> usuarios_dest= new ArrayList<String>();
 			
-			
+			String fecha_inicio="Siempre";
+			String fecha_fin="Siempre";
 			
 			
 			switch(tipo) {
@@ -365,10 +329,12 @@ public class GestorTablon {
 				
 				usuario_dest="todos";
 				usuarios_dest.add(usuario_dest);
+				
 				break;
 				
 			case "Tematico":
 				
+
 				System.out.println("¿A que intereses del usuario te diriges? : \n");
 				System.out.println("Escriba alguno de los siguientes separado por comas sin espacios\n");
 				System.out.println("Pintura    Música    Deporte  \n");
@@ -379,12 +345,16 @@ public class GestorTablon {
 				interes= teclado.nextLine();
 				
 				usuarios_dest=g.UsuariosValidos(interes);
-				
+
 				
 				
 				break;
 				
 			case "Individualizado":
+				
+	
+				
+				
 				System.out.println("¿A que usuario/s te diriges? (Escribe sus nombres y apellidos separados por comas): \n");
 				usuario_dest= teclado.nextLine();				
 				usuarios_dest=Separar(usuario_dest);
@@ -392,6 +362,34 @@ public class GestorTablon {
 				break;
 				
 			case "Flash":
+				
+				
+				System.out.println("Fecha inicio del anuncio: \n");     //FECHA INICIO
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				fecha_inicio= teclado.nextLine();
+				
+				while(!g.validarFecha(fecha_inicio)) {					//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
+					System.out.println("\nFecha no válida");
+					System.out.println("Fecha inicio del anuncio: \n");
+					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+					fecha_inicio = teclado.nextLine();
+				}
+				
+				
+				System.out.println("Fecha de finalización del anuncio: \n");  //FECHA FINALIZACIÓN 
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				fecha_fin= teclado.nextLine();
+				
+				
+				
+				while(!g.validarFecha(fecha_fin)) {							//COMPROBAMOS QUE INTRODUZCA UNA FECHA VÁLIDA
+					System.out.println("\nFecha no válida");
+					System.out.println("Fecha fin del anuncio: \n");
+					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+					fecha_fin = teclado.nextLine();
+				}
+				
+				
 				usuario_dest="todos";
 				usuarios_dest.add(usuario_dest);
 				break;
@@ -403,12 +401,17 @@ public class GestorTablon {
 			
 			System.out.println("Cuerpo: \n");
 			String cuerpo= teclado.nextLine();
-			
+	
 			Anuncio a= new Anuncio(id,titulo,fecha_inicio,fecha_fin,usuario_prop,usuarios_dest,cuerpo,tipo);
+
+			
+			
 			ArrayList<Anuncio> auxiliar= new ArrayList<Anuncio>();
 			auxiliar.add(a);
 			
 			c.setMisAnuncios(auxiliar);
+			
+			System.out.println("Anuncio creado \n");
 			
 			
 		}

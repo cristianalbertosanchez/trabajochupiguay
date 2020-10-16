@@ -1,5 +1,15 @@
+pablo
+dominguez
+i83sasac@uco.es
+07/07/2000
+cine
 alberto
 sanchez
 i82sasac@uco.es
 07/07/2000
-pintura
+cine
+alberto
+sanchez
+i84sasac@uco.es
+07/07/2000
+tecnologia

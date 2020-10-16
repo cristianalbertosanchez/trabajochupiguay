@@ -21,7 +21,7 @@ public class GestorContactos {
 
 	private static GestorContactos gestor;
 	
-	private ArrayList<Contacto> contactos;
+	public static ArrayList<Contacto> contactos;
 	
 	public GestorContactos() {contactos = new ArrayList<Contacto>();}
 		
@@ -734,11 +734,43 @@ public class GestorContactos {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void escribirAnuncios() {
+		
+		String nombre = "";
+		String apellidos = "";
+		String email = "";
+		String fechaN = "";
+		ArrayList<String> intereses = new ArrayList<String>();
+		String rutaFichero = getRuta()+"\\fichero1.txt";
+		
 
-		
-		
-		
+		try {
+			FileWriter fichero = new FileWriter(rutaFichero);
+			
+			for(int i=0;i<contactos.size();i++) {
+				nombre = contactos.get(i).getNombre();
+				apellidos = contactos.get(i).getApellidos();
+				email = contactos.get(i).getEmail();
+				fechaN = contactos.get(i).getFechaN();
+				intereses = contactos.get(i).getIntereses();
 
+				fichero.write(nombre+"\n");
+				fichero.write(apellidos+"\n");
+				fichero.write(email+"\n");
+				fichero.write(fechaN+"\n");
+				for(int j=0;j<intereses.size();j++) {
+					fichero.write(intereses.get(j)+"\n");
+				}
+				
+			}
+			fichero.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
