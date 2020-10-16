@@ -25,9 +25,9 @@ public class GestorContactos {
 
 	private static GestorContactos gestor;
 	
-	private ArrayList<Contacto> contactos;
+	public static ArrayList<Contacto> contactos;
 	
-	private GestorContactos() {contactos = new ArrayList<Contacto>();}
+	public GestorContactos() {contactos = new ArrayList<Contacto>();}
 		
 	/**
 	 * Este método servirá para que solo se pueda crear una instancia del objeto GestorContacto.
@@ -59,6 +59,64 @@ public class GestorContactos {
 	 * @param fechaN es la fecha de nacimiento del contacto
 	 * @param intereses es una serie de intereses que tendrá el contacto
 	 */
+	
+	
+	public void CreacionContacto(String email) {
+
+		
+		
+		Scanner sn = new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
+		System.out.println( "Introduce nombre por favor : \n");
+		
+		String nombre = teclado.nextLine();
+		
+		System.out.println( "Introduce apellidos por favor : \n");
+		
+		String apellidos = teclado.nextLine();
+		
+		System.out.println("Introduce la fecha de nacimiento :    ");
+		System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+		String fechaN = teclado.nextLine();
+		
+		while(validarFecha(fechaN)) {
+			System.out.println("\nFecha no válida");
+			System.out.println("Introduce la fecha de nacimiento :    ");
+			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+			fechaN = teclado.nextLine();
+		}
+		
+		System.out.println("Introduzca sus intereses");
+		System.out.println("Escriba alguno de los siguientes separado por comas\n");
+		System.out.println("Pintura    Música    Deporte  \n");
+		System.out.println("Pesca      Cine      Fotografía  \n");
+		System.out.println("Viajes     Tecnología \n");
+		
+		
+		String intereses = teclado.nextLine();
+		ArrayList<String> aux = new ArrayList<String>();
+		
+		Obtencion_Intereses(intereses);
+		
+		while(!Obtencion_Intereses(intereses)) {
+			System.out.println("\n Intereses no válidos");
+			System.out.println("Vuelva a introducir los intereses :    ");
+			System.out.println("Escriba alguno de los siguientes separado por comas\n");
+			System.out.println("Pintura    Música    Deporte  \n");
+			System.out.println("Pesca      Cine      Fotografía  \n");
+			System.out.println("Viajes     Tecnología \n");
+			intereses = teclado.nextLine();
+			
+		}
+						
+		aux = devolver_array(intereses);
+		
+		System.out.println("Contacto creado.\n");
+		crearContacto(nombre,apellidos,email,fechaN,aux);
+	}
+	
+	
+	
 	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
@@ -383,7 +441,7 @@ public class GestorContactos {
 						}
 										
 						aux = devolver_array(intereses);
-						contactos.get(i).addInteres(aux);
+						contactos.get(i).setIntereses(aux);
 						
 					break;
 					
