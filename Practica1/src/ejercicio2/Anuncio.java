@@ -1,7 +1,6 @@
 package ejercicio2;
 import java.util.ArrayList;
-import ejercicio1.Contacto;
-import ejercicio1.GestorContactos;
+
 
 
 public class Anuncio {

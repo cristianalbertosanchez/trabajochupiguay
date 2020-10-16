@@ -35,7 +35,7 @@ public class GestorContactos {
 		
 	}
 	
-	public void CreacionContacto() {
+	public void CreacionContacto(String email) {
 		
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
@@ -48,21 +48,11 @@ public class GestorContactos {
 		
 		String apellidos = teclado.nextLine();
 		
-		System.out.println("Introduce email por favor : \n");
-		String contactoEmail= teclado.nextLine();
-											
-		while(existeContacto(contactoEmail)!=0 ) {
-			
-			System.out.println("Introduce de nuevo un email por favor : \n");
-			contactoEmail= teclado.nextLine();
-		}
-		
-		
 		System.out.println("Introduce la fecha de nacimiento :    ");
 		System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
 		String fechaN = teclado.nextLine();
 		
-		while(validarFecha(fechaN)) {
+		while(!validarFecha(fechaN)) {
 			System.out.println("\nFecha no válida");
 			System.out.println("Introduce la fecha de nacimiento :    ");
 			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
@@ -94,15 +84,16 @@ public class GestorContactos {
 						
 		aux = devolver_array(intereses);
 		
-		System.out.println("Contacto creado.\n");
-		crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
+		System.out.println("Usuario creado.\n");
+		crearContacto(nombre,apellidos,email,fechaN,aux);
+		escribirEnFichero();
 	}
 
 	
 	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
-		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses);
+		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses,null);
 		contactos.add(c);
 	}
 	
@@ -376,7 +367,7 @@ public class GestorContactos {
 						}
 										
 						aux = devolver_array(intereses);
-						contactos.get(i).addInteres(aux);
+						contactos.get(i).setIntereses(aux);
 						
 					break;
 					
@@ -600,14 +591,11 @@ public class GestorContactos {
 					existe = 1;
 				}
 			}
-			if(existe==1) {
-				System.out.println("El email ya se encuentra en uso\n");
-			}
 			
 		}
 		else {
 			existe=-1;
-			System.out.println("Formato de email no válido\n");
+		
 		}
 
 		return existe;
@@ -789,7 +777,7 @@ public class GestorContactos {
 				
 				ArrayList<String> aux = new ArrayList<String>(intereses);
 				
-				Contacto c = new Contacto(nombre,apellidos,email,fechaN,aux);
+				Contacto c = new Contacto(nombre,apellidos,email,fechaN,aux,null);
 				contactos.add(c);
 				
 				

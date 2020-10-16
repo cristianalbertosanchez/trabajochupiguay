@@ -1,6 +1,7 @@
 package ejercicio2;
 import java.util.Scanner;
 
+import ejercicio1.Contacto;
 import ejercicio1.GestorContactos;
 
 import java.util.ArrayList;
@@ -14,6 +15,19 @@ public class main{
 		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
 		int opcion1;
+		GestorContactos g = GestorContactos.getInstance(); /*Solicito un objeto gestorContactos
+			mediante el patron singleton*/
+		ArrayList<Contacto> recibidos = new ArrayList<Contacto>();
+		
+		//Primero cargamos los posibles contactos que pueda haber en el fichero de contactos	
+				String ruta;
+				ruta = g.getRuta();
+				recibidos = g.leerDeFichero(ruta);
+				for(int i=0;i<recibidos.size();i++) {
+					g.crearContacto(recibidos.get(i));
+				}
+				
+			//-------------------------------------------------------------------------------------	
 		
 		while(!salir) {
 			
