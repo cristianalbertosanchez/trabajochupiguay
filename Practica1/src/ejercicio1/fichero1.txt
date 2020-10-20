@@ -8,13 +8,3 @@ perez
 222@uco.es
 11/12/1999
 Pintura
-Elisabeth
-Johnson
-333@uco.es
-11/12/1999
-Pintura,Musica
-Johny
-JohnyBerry
-444@uco.es
-11/12/1999
-Pintura,Cine

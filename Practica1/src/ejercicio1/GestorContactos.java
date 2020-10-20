@@ -250,30 +250,31 @@ public class GestorContactos {
 			System.out.println("A continuación se muestran los datos del contacto a eliminar: \n");
 			
 			for(int i=0;i<contactos.size();i++) {
-				String nombre=contactos.get(i).getNombre();
-				String apellidos=contactos.get(i).getApellidos();
-				String Email=contactos.get(i).getEmail();
-				String Fecha_nacimiento=contactos.get(i).getFechaN();
-				
-				
-				System.out.println("Nombre              : "+nombre);
-				System.out.println("Apellidos           : "+apellidos);
-				System.out.println("Email               : "+Email);
-				System.out.println("Fecha de nacimiento : "+Fecha_nacimiento);
-				System.out.print("Intereses           : ");
-				for(int a=0;a<contactos.get(i).getIntereses().size();a++)
-				{
-					if(a== contactos.get(i).getIntereses().size()-1) {
-						 System.out.print(contactos.get(i).getIntereses().get(a)+".");
-					}else {
-						 System.out.print(contactos.get(i).getIntereses().get(a) + ",");
+				if(contactos.get(i).getEmail().equals(cadena)) {
+					String nombre=contactos.get(i).getNombre();
+					String apellidos=contactos.get(i).getApellidos();
+					String Email=contactos.get(i).getEmail();
+					String Fecha_nacimiento=contactos.get(i).getFechaN();
+					
+					
+					System.out.println("Nombre              : "+nombre);
+					System.out.println("Apellidos           : "+apellidos);
+					System.out.println("Email               : "+Email);
+					System.out.println("Fecha de nacimiento : "+Fecha_nacimiento);
+					System.out.print("Intereses           : ");
+					for(int a=0;a<contactos.get(i).getIntereses().size();a++)
+					{
+						if(a== contactos.get(i).getIntereses().size()-1) {
+							 System.out.print(contactos.get(i).getIntereses().get(a)+".");
+						}else {
+							 System.out.print(contactos.get(i).getIntereses().get(a) + ",");
+						}
 					}
+
+					System.out.println("");
+					System.out.println("----------------------------");
 				}
-				
-				System.out.println("");
-				System.out.println("----------------------------");
-			
-				
+					
 			}
 			System.out.println("¿Eliminar definitivamente? Y/N \n");
 			auxiliar = teclado.nextLine();
