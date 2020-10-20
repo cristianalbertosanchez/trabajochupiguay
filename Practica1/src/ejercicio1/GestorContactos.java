@@ -110,13 +110,17 @@ public class GestorContactos {
 				
 				if(op == 2) {
 					salir = true;
+				} else if(op ==1){
+					System.out.println("Interes añadido.");
+				}else {
+					System.out.println("Opcion no valida.");
 				}
-				
+					
 			}
-		}		
-		
-		
-		
+				
+		}	
+			
+
 		System.out.println("Contacto creado.\n");
 		crearContacto(nombre,apellidos,email,fechaN,aux);
 	}
