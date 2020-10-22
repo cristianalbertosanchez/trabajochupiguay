@@ -1,6 +1,6 @@
 package ejercicio2;
 
-public class Anuncio {
+public abstract class Anuncio {
 
 	private int id;
 	private String titulo;
