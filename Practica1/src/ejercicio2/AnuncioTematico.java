@@ -8,8 +8,14 @@ import ejercicio1.GestorContactos;
 public class AnuncioTematico extends Anuncio {
 	
 	GestorContactos g = GestorContactos.getInstance();
+	
+	
+	public AnuncioTematico(int id,String titulo,Contacto propietario,ArrayList<Contacto> destinatarios,String cuerpo) {
+		super(id,titulo,propietario,destinatarios,cuerpo);
+	}
+	
 
-	public ArrayList<Contacto> targets(String interes){
+	public ArrayList<Contacto> contactos_con_target(String interes){
 		
 		ArrayList<Contacto> ret = new ArrayList<Contacto>();
 		

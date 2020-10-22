@@ -8,6 +8,10 @@ public class AnuncioIndividualizado extends Anuncio {
 	
 	GestorContactos g = GestorContactos.getInstance();
 	
+	public AnuncioIndividualizado(int id,String titulo,Contacto propietario,ArrayList<Contacto> destinatarios,String cuerpo) {
+		super(id,titulo,propietario,destinatarios,cuerpo);
+	}
+	
 	public ArrayList<Contacto> returnTarget(String nombre){
 		
 		ArrayList<Contacto> ret = new ArrayList<Contacto>();

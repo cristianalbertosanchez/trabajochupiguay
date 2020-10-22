@@ -1,8 +1,11 @@
 package ejercicio2;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+
+import ejercicio1.Contacto;
 
 public class AnuncioFlash extends Anuncio{
 
@@ -10,6 +13,12 @@ public class AnuncioFlash extends Anuncio{
 	private Date horaInicio;
 	private Date horaFin;
 	
+	
+	public AnuncioFlash(int id,String titulo,Contacto propietario,ArrayList<Contacto> destinatarios,String cuerpo,Date horaInicio,Date horaFin) {
+		super(id,titulo,propietario,destinatarios,cuerpo);
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+	}
 	
 	public Date getHoraInicio() {
 		return this.horaInicio;
