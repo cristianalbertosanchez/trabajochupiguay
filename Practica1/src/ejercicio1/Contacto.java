@@ -1,5 +1,6 @@
 package ejercicio1;
 import java.util.ArrayList;
+import ejercicio2.Anuncio;
 
 
 
@@ -11,11 +12,13 @@ public class Contacto {
 	private String fecha_nacimiento;
 	private String email;
 	private ArrayList<String> intereses;
+	private ArrayList<Anuncio> anuncios;
 	
 
 
 
 	public Contacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses) {this.nombre = nombre; this.apellidos = apellidos; this.email = email;this.fecha_nacimiento = fechaN;this.intereses = intereses;}
+	public Contacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses,ArrayList<Anuncio> anuncios) {this.nombre = nombre; this.apellidos = apellidos; this.email = email;this.fecha_nacimiento = fechaN;this.intereses = intereses;this.anuncios = anuncios;}
 	public Contacto(Contacto c) {
 		
 		this.nombre = c.nombre; 
@@ -23,6 +26,7 @@ public class Contacto {
 		this.email = c.email;
 		this.fecha_nacimiento = c.fecha_nacimiento;
 		this.intereses = new ArrayList<String>(c.intereses);
+		this.anuncios = new ArrayList<Anuncio>(c.anuncios);
 	}
 	
 	
@@ -31,6 +35,7 @@ public class Contacto {
 	public String getApellidos() {return this.apellidos;}	
 	public String getFechaN() {return this.fecha_nacimiento;}
 	public ArrayList<String> getIntereses(){return this.intereses;}
+	public ArrayList<Anuncio> getAnuncios(){return this.anuncios;}
 
 
 
@@ -41,6 +46,7 @@ public class Contacto {
 	public void setFechaN(String fechaN) {this.fecha_nacimiento = fechaN;}
 
 	public void setIntereses(ArrayList<String> intereses) {this.intereses = intereses;}
+	public void setAnuncios(ArrayList<Anuncio> anuncios) {this.anuncios = anuncios;}
 
 		
 	
