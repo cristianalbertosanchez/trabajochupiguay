@@ -13,6 +13,7 @@ public class GestorAnuncios {
 	private static GestorAnuncios gestorA = null;
 	
 	
+	
 	public static GestorAnuncios getInstance() {
 		if(gestorA == null) {
 			gestorA = new GestorAnuncios();
@@ -28,7 +29,7 @@ public class GestorAnuncios {
 		System.out.println("Intoducir email : ");
 		email = teclado.nextLine();
 		
-		for(int i=0;i<g.getContactos().size();i++) {
+		for(int i=0;i<gC.getContactos().size();i++) {
 			if(gestorC.getContactos().get(i).getEmail().equals(email)) {
 				MenuAnuncios(gestorC.getContactos().get(i));
 			}
