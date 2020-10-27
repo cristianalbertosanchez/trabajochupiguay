@@ -69,7 +69,6 @@ public class GestorContactos {
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
 		boolean salir = false;
-		boolean loop2 = true;
 		System.out.println( "Introduce nombre por favor : \n");
 		
 		String nombre = teclado.nextLine();
@@ -390,6 +389,10 @@ public class GestorContactos {
 								int op = teclado.nextInt();
 								if(op == 2) {
 									salir = true;
+								}else {
+									if(op != 1) {
+										System.out.println("Opcion no valida");
+									}
 								}
 							}
 							
@@ -889,65 +892,18 @@ public class GestorContactos {
 	
 
 	
-	public ArrayList<String>Separar(String cadena) {
-		ArrayList<String> aux= new ArrayList<String>();
-		
-		
-		String[] separado = cadena.split(",");
-		
-		
-		
-		for (int i=0; i<separado.length-1; i++) {
-			aux.add(separado[i]);
-		}
-		
-		return aux;
-	}
-	
-	//Funcion que recibe una cadena que se presupone con valores String separados entre
-	//comas y los separa añadiendo cada valor a una posicion de un ArrayList<String> que devulve posteriormente
-	
-	public ArrayList<String> UsuariosValidos(String cadena){
-		
-		ArrayList<String> intereses_buscados=new ArrayList<String>();
-		
-		ArrayList<String> intereses=new ArrayList<String>();
-		
-		ArrayList<String> aux=new ArrayList<String>();
-		
-		intereses_buscados=Separar(cadena);
-		
-		Contacto c;
-		
-		for(int j=0;j<intereses_buscados.size();j++) {
-				for(int i=0;i<contactos.size();i++) {
-					intereses=contactos.get(j).getIntereses();
-					c=contactos.get(j);
-					for(int h=0;h<intereses.size();h++) {
-						if(intereses.get(h).contentEquals(intereses_buscados.get(j))) {
-							String nombre=c.getNombre();
-							String apellidos=c.getApellidos();
-							String nombre_apellidos=nombre+" "+apellidos;
-							aux.add(nombre_apellidos);
-						}
-						
-					}
-				}
-					
-					
-			}
-			
-		
-		
-		
-		return aux;
-	}
+	/**
+	 * Este metodo recibe una cadena String separada por comas y las separa en elementos los cuales
+	 * introduce en el ArrayList
+	 * @param cadena String que se va a separar
+	 * @return Un ArrayList con los elementos de la cadena.
+	 */
 	
 	
 public ArrayList<String> devolver_array (String cadena){
 		
 		ArrayList<String> array = new ArrayList<String>();
-		boolean aux;
+		
 		
 				
 		String[] InteresElementos = cadena.split(",");

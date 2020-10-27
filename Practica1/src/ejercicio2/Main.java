@@ -2,6 +2,8 @@ package ejercicio2;
 
 import java.util.Scanner;
 
+import ejercicio1.GestorContactos;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -13,7 +15,8 @@ public class Main {
 		GestorContactos gC = GestorContactos.getInstance();
 		
 		String ruta;
-		ruta = 
+		ruta = gC.getRuta();
+		gC.leerDeFichero(ruta);
 		
 		
 		System.out.println("Menu Anuncios");
