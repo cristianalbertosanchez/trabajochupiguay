@@ -11,12 +11,11 @@ public class Main {
 		int id = 0;
 		Scanner sn = new Scanner(System.in);
 		int op;
-		GestorAnuncios gA = GestorAnuncios.getInstance();
-		GestorContactos gC = GestorContactos.getInstance();
 		
-		String ruta;
-		ruta = gC.getRuta();
-		gC.leerDeFichero(ruta);
+		GestorAnuncios gA = GestorAnuncios.getInstance();
+		
+		
+		
 		
 		
 		System.out.println("Menu Anuncios");

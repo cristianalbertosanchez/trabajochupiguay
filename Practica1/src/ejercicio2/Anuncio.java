@@ -3,9 +3,10 @@ package ejercicio2;
 import ejercicio1.Contacto;
 import java.util.ArrayList;
 
-public abstract class Anuncio {
+public class Anuncio {
 
 	private int id;
+	private String tipo;
 	private String titulo;
 	private Contacto propietario;
 	private ArrayList<Contacto> destinatarios;
@@ -51,6 +52,10 @@ public abstract class Anuncio {
 	}
 	public void setCuerpo(String cuerpo) {
 		this.cuerpo = cuerpo;
+	}
+	
+	public String getTipo() {
+		return tipo;
 	}
 	
 	

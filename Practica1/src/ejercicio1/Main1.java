@@ -48,7 +48,62 @@ public class Main1 {
 					System.out.println("Introduce de nuevo un email por favor : \n");
 					contactoEmail= teclado.nextLine();
 				}
-				g.CreacionContacto(contactoEmail);
+				
+				
+				Scanner tec = new Scanner(System.in);
+				boolean out = false;
+				System.out.println( "Introduce nombre por favor : \n");
+				
+				String nombre = tec.nextLine();
+				
+				System.out.println( "Introduce apellidos por favor : \n");
+				
+				String apellidos = tec.nextLine();
+				
+				System.out.println("Introduce la fecha de nacimiento :    ");
+				System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+				String fechaN = tec.nextLine();
+				
+				while(!g.validarFecha(fechaN)) {
+					System.out.println("\nFecha no válida");
+					System.out.println("Introduce la fecha de nacimiento :    ");
+					System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
+					fechaN = tec.nextLine();
+				}
+				
+				ArrayList<String> aux = new ArrayList<String>();
+				while(!out) {
+					System.out.println("Introduzca sus intereses");
+					System.out.println("Escriba alguno de los siguientes : \n");
+					System.out.println("Pintura    Música    Deporte  \n");
+					System.out.println("Pesca      Cine      Fotografía  \n");
+					System.out.println("Viajes     Tecnología \n");
+					
+					String interes = tec.nextLine();
+					if(!g.validarElemento(interes)) {
+						System.out.println("Interes no válido.\n");
+					}else {
+						aux.add(interes);
+						
+						System.out.println("¿Desea añadir otro interes?");
+						System.out.println("1.Si");
+						System.out.println("2.No");
+						int op = tec.nextInt();
+						
+						if(op == 2) {
+							salir = true;
+						} else if(op ==1){
+							System.out.println("Interes añadido.");
+						}else {
+							System.out.println("Opcion no valida.");
+						}
+							
+					}
+						
+				}	
+				
+				
+				g.crearContacto(nombre,apellidos,contactoEmail,fechaN,aux);
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
@@ -56,15 +111,34 @@ public class Main1 {
 				
 			case 2: 
 				//Eliminar contacto
-				g.eliminarContacto();
+				
+				String cadena;
+				
+				System.out.println("Introducir email de el contacto a eliminar : \n");
+				cadena = teclado.nextLine();
+				
+				g.eliminarContacto(cadena);
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				
 				break;
 			case 3:
 				//Buscar contacto
-
-				g.buscarContacto();
+				
+				Scanner teclado2 = new Scanner(System.in);
+				int op3;
+				
+				System.out.println("1. Buscar por Nombre y apellidos.\n");
+				System.out.println("2. Buscar por Fecha de nacimiento\n");
+				System.out.println("3. Buscar por Email.\n");
+				System.out.println("4. Buscar por Intereses.\n");
+				System.out.println("0. Salir\n");
+				
+				
+				System.out.println("Introducir opcion : \n");
+				op3 = teclado2.nextInt();
+				
+				g.buscarContacto(op3);
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();
 				break;
@@ -72,9 +146,24 @@ public class Main1 {
 				//Actualizar contacto
 				
 				String cadena3;
+				int opcion2;
+				
 				System.out.println("Introducir email de el contacto a actualizar : \n");
 				cadena3 = teclado.nextLine();
-				g.actualizarContacto(cadena3);
+				
+				
+				System.out.println("1. Cambiar Nombre.\n");
+				System.out.println("2. Cambiar Apellidos.\n");
+				System.out.println("3. Cambiar Email.\n");
+				System.out.println("4. Cambiar Fecha de nacimiento.\n");
+				System.out.println("5. Cambiar Intereses.\n");
+				
+				System.out.println("0. Volver\n");
+					
+				System.out.println("Introducir opcion para ACTUALIZAR : \n");
+				opcion2 = sn.nextInt();
+				
+				g.actualizarContacto(opcion2,cadena3);
 				
 				GestorContactos.press_any_key_to_continue();
 				GestorContactos.clearConsole();

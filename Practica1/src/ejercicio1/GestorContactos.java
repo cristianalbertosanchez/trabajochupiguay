@@ -61,72 +61,6 @@ public class GestorContactos {
 	 * @param intereses es una serie de intereses que tendrá el contacto
 	 */
 	
-	
-	public void CreacionContacto(String email) {
-
-		
-		
-		Scanner sn = new Scanner(System.in);
-		Scanner teclado = new Scanner(System.in);
-		boolean salir = false;
-		System.out.println( "Introduce nombre por favor : \n");
-		
-		String nombre = teclado.nextLine();
-		
-		System.out.println( "Introduce apellidos por favor : \n");
-		
-		String apellidos = teclado.nextLine();
-		
-		System.out.println("Introduce la fecha de nacimiento :    ");
-		System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-		String fechaN = teclado.nextLine();
-		
-		while(!validarFecha(fechaN)) {
-			System.out.println("\nFecha no válida");
-			System.out.println("Introduce la fecha de nacimiento :    ");
-			System.out.println("(Por favor sigua el formato DD/MM/AAAA)\n");
-			fechaN = teclado.nextLine();
-		}
-		
-		ArrayList<String> aux = new ArrayList<String>();
-		while(!salir) {
-			System.out.println("Introduzca sus intereses");
-			System.out.println("Escriba alguno de los siguientes : \n");
-			System.out.println("Pintura    Música    Deporte  \n");
-			System.out.println("Pesca      Cine      Fotografía  \n");
-			System.out.println("Viajes     Tecnología \n");
-			
-			String interes = teclado.nextLine();
-			if(!validarElemento(interes)) {
-				System.out.println("Interes no válido.\n");
-			}else {
-				aux.add(interes);
-				
-				System.out.println("¿Desea añadir otro interes?");
-				System.out.println("1.Si");
-				System.out.println("2.No");
-				int op = teclado.nextInt();
-				
-				if(op == 2) {
-					salir = true;
-				} else if(op ==1){
-					System.out.println("Interes añadido.");
-				}else {
-					System.out.println("Opcion no valida.");
-				}
-					
-			}
-				
-		}	
-			
-
-		System.out.println("Contacto creado.\n");
-		crearContacto(nombre,apellidos,email,fechaN,aux);
-	}
-	
-	
-	
-	
 	public void crearContacto(String nombre,String apellidos,String email,String fechaN,ArrayList<String> intereses)
 	{
 		Contacto c = new Contacto(nombre,apellidos,email,fechaN,intereses);
@@ -223,17 +157,14 @@ public class GestorContactos {
 	 */
 	
 	
-	public void eliminarContacto() 
+	public void eliminarContacto(String cadena) 
 	{
 		
 		
 		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
-				
-		String cadena,auxiliar;
+		String auxiliar;
 		boolean comprueba=false;
-		System.out.println("Introducir email de el contacto a eliminar : \n");
-		cadena = teclado.nextLine();
 		
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(cadena)) {
@@ -285,6 +216,10 @@ public class GestorContactos {
 						contactos.remove(i);
 					}
 				}
+			}else if(auxiliar.equals("n") || auxiliar.equals("N")) {
+				System.out.println("Cancelando operacion.");
+			}else {
+				System.out.println("Opcion no valida.");
 			}
 		}
 		
@@ -301,26 +236,13 @@ public class GestorContactos {
 	 * @param email sirve como identificador del contacto que se va a actualizar
 	 */
 	
-	public void actualizarContacto(String email) {
+	public void actualizarContacto(int op,String email) {
+		
+		Scanner teclado = new Scanner(System.in);
 		
 		for(int i=0;i<contactos.size();i++) {
 			if(contactos.get(i).getEmail().contentEquals(email)) {
-				
-				Scanner sn = new Scanner(System.in);
-				Scanner teclado = new Scanner(System.in);
-				
-				System.out.println("1. Cambiar Nombre.\n");
-				System.out.println("2. Cambiar Apellidos.\n");
-				System.out.println("3. Cambiar Email.\n");
-				System.out.println("4. Cambiar Fecha de nacimiento.\n");
-				System.out.println("5. Cambiar Intereses.\n");
-				
-				System.out.println("0. Volver\n");
-					
-				System.out.println("Introducir opcion para ACTUALIZAR : \n");
-				int opcion = sn.nextInt();
-				
-				switch(opcion){
+				switch(op){
 				
 					case 1:
 						System.out.println("Introducir nuevo nombre : \n");
@@ -386,11 +308,11 @@ public class GestorContactos {
 								System.out.println("¿Desea añadir otro interes?");
 								System.out.println("1.Si");
 								System.out.println("2.No");
-								int op = teclado.nextInt();
-								if(op == 2) {
+								int op2 = teclado.nextInt();
+								if(op2 == 2) {
 									salir = true;
 								}else {
-									if(op != 1) {
+									if(op2 != 1) {
 										System.out.println("Opcion no valida");
 									}
 								}
@@ -434,22 +356,12 @@ public class GestorContactos {
 	 * @return true si el contacto está en la lista de contactos del gestor, false en caso contrario.
 	 */
 	
-	public boolean buscarContacto(){
+	public boolean buscarContacto(int opcion){
 		boolean aux;
 		aux=false;
-		int opcion;
-		Scanner sn = new Scanner(System.in);
 		Scanner teclado = new Scanner(System.in);
 		
-		System.out.println("1. Buscar por Nombre y apellidos.\n");
-		System.out.println("2. Buscar por Fecha de nacimiento\n");
-		System.out.println("3. Buscar por Email.\n");
-		System.out.println("4. Buscar por Intereses.\n");
-		System.out.println("0. Salir\n");
 		
-		
-		System.out.println("Introducir opcion : \n");
-		opcion = sn.nextInt();
 			switch(opcion) {
 				case 1:
 					
@@ -817,9 +729,7 @@ public class GestorContactos {
 						fechaN = cadena;
 						cadena = br.readLine();
 						ArrayList<String> aux = new ArrayList<String>(devolver_array(cadena));
-						for(int j=0;j<aux.size();j++) {
-							System.out.println(aux.get(j));
-						}
+						
 						
 						crearContacto(nombre,apellidos,email,fechaN,aux);
 						
