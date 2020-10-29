@@ -24,7 +24,7 @@ import java.util.Scanner;
 
 public class GestorContactos {
 
-	private static GestorContactos gestor;
+	private static GestorContactos gestor = null;
 	
 	private ArrayList<Contacto> contactos;
 	

@@ -91,10 +91,14 @@ public class Main1 {
 						int op = tec.nextInt();
 						
 						if(op == 2) {
-							salir = true;
-						} else if(op ==1){
-							System.out.println("Interes añadido.");
-						}else {
+							out = true;
+						} 
+						
+						if(op == 1) {
+							System.out.println("Contacto añadido.");
+						}
+						
+						if(op != 1 && op != 2) {
 							System.out.println("Opcion no valida.");
 						}
 							
